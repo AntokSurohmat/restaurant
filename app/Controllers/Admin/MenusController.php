@@ -2,10 +2,22 @@
 
 namespace App\Controllers\Admin;
 
+use App\Models\Admin\MenusModel;
 use CodeIgniter\RESTful\ResourceController;
 
 class MenusController extends ResourceController
 {
+    protected $helpers= ['form', 'url', 'text'];
+    public function __construct()
+    {
+        $this->menus      = new MenusModel();
+        $this->csrfToken  = csrf_token();
+        $this->csrfHash   = csrf_hash();
+        $this->session    = \Config\Services::session();
+        $this->db         = \Config\Database::connect();
+        $this->validation = \Config\Services::validation();
+        $this->session->start();
+    }
     /**
      * Return an array of resource objects, themselves in array format
      *
@@ -13,7 +25,13 @@ class MenusController extends ResourceController
      */
     public function index()
     {
-        //
+        $data = array(
+            'title' => 'Daftar Menu',
+            'parent' => 2,
+            'pmenu' => '',
+
+        );
+        return view('admin/menu/v-menu', $data);
     }
 
     /**
@@ -43,7 +61,75 @@ class MenusController extends ResourceController
      */
     public function create()
     {
-        //
+
+        $valid = $this->validate([
+            'kodeMenuAddEditForm' => [
+                'label'  => 'Kode Menu',
+                'rules'  => 'required|numeric|max_length[11]|is_unique[menus.kode_menu]',
+                'errors' => [
+                    'numeric'    => '{field} Hanya Bisa Memasukkan Angka',
+                    'max_length' => '{field} Maksimal 11 Karakter',
+                    'is_unique'  => '{field} Kode Yang Anda masukkan sudah dipakai',
+                ],
+            ],
+            'namaMenuAddEditForm' => [
+                'label'  => 'Nama Menu',
+                'rules'  => 'required|alpha_space|max_length[30]|min_length[3]',
+                'errors' => [
+                'alpha_space' => '{field} Hanya Boleh Memasukkan Huruf',
+                'max_length'  => '{field} Maksimal Memasukkan 30 Karakter',
+                'min_length'  => '{field} Minimal Memasukkan 3 Karakter'
+                ],
+            ],
+            'hargaMenuAddEditForm' => [
+                'label'  => 'Harga Menu',
+                'rules'  => 'required|numeric|max_length[20]|min_length[3]',
+                'errors' => [
+                'numeric'    => '{field}  Hanya Boleh Memasukkan Angka',
+                'max_length' => '{field}  Maksimal Memasukkan 20 Karakter',
+                'min_length' => '{field}  Minimal Memasukkan 3 Karakter'
+                ],
+            ],
+            'deskripsiMenuAddEditForm' => [
+                'label'  => 'Deskripsi Menu',
+                'rules'  => 'required|alpha_numeric_punct|max_length[50]|min_length[3]',
+                'errors' => [
+                'alpha_numeric_punct' => 'Hanya Boleh Memasukkan Huruf + Angka',
+                'max_length'          => 'Maksimal Memasukkan 50 Karakter',
+                'min_length'          => 'Minimal Memasukkan 3 Karakter'
+                ],
+            ],
+        ]);
+
+        if (!$valid) {
+            $data = [
+                'error' => [
+                    'kodeMenu'      => $this->validation->getError('kodeMenuAddEditForm'),
+                    'namaMenu'      => $this->validation->getError('namaMenuAddEditForm'),
+                    'hargaMenu'     => $this->validation->getError('hargaMenuAddEditForm'),
+                    'deskripsiMenu' => $this->validation->getError('deskripsiMenuAddEditForm'),
+                ],
+                'msg' => $this->validation->getErrors(),
+            ];
+        } else {
+            $data = [
+                'kode_menu'      => $this->db->escapeString($this->request->getVar('kodeMenuAddEditForm')),
+                'nama_menu'      => $this->db->escapeString($this->request->getVar('namaMenuAddEditForm')),
+                'harga_menu'     => $this->db->escapeString($this->request->getVar('hargaMenuAddEditForm')),
+                'deskripsi_menu' => $this->db->escapeString($this->request->getVar('deskripsiMenuAddEditForm')),
+            ];
+
+            if( $this->menus->insert($data)){
+                d(true);print_r(true);
+            }else{
+                d(false);print_r(false);
+            }
+
+            die();
+        }
+        $data['msg'] =$data['msg'];
+        $data[$this->csrfToken] = $this->csrfHash;
+        echo json_encode($data);
     }
 
     /**
