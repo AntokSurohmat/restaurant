@@ -24,6 +24,10 @@
     <!-- DataTable -->
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/tables/datatable/datatables.min.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/tables/extensions/responsive.dataTables.min.css">
+    <!-- SweetAlert2 && Toastr -->
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/extensions/toastr.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/extensions/sweetalert2.min.css">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -38,11 +42,20 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/core/colors/palette-gradient.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/fonts/simple-line-icons/style.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/pages/dashboard-ecommerce.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/plugins/extensions/toastr.css">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/assets/css/style.css">
     <!-- END: Custom CSS-->
+    
+    <!-- BEGIN: THIRDPARTY CSS-->
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/thirdparty/jquery-datatables-checkboxes/css/dataTables.checkboxes.css" rel="stylesheet" />
+    <!-- END: THIRDPARTY CSS-->
+
+    <!-- BEGIN: Me CSS-->
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/custom/css/custom.css">
+    <!-- END: Me CSS-->
 </head>
 <!-- END: Head-->
 
@@ -88,6 +101,10 @@
     <!-- DataTable -->
     <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/tables/datatable/datatables.min.js"></script>
     <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js"></script>
+    <!-- SweetAlert2 && Toastr -->
+    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/extensions/polyfill.min.js"></script>
+    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/extensions/toastr.min.js"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
@@ -96,13 +113,19 @@
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
-
+    <script src="<?= base_url() ?>/assets/modern/app-assets/js/scripts/forms/custom-file-input.js"></script>
     <!-- END: Page JS-->
+
+    <!-- BEGIN: THIRDPARTY JS-->
+    <script src="<?= base_url() ?>/assets/thirdparty/jquery-datatables-checkboxes/js/dataTables.checkboxes.min.js"></script>
+    <!-- END: THIRDPARTY JS-->
 
     <!-- BEGIN: Me JS-->
 	<script src="<?= base_url() ?>/assets/custom/js/custom.js"></script>
 	<?= $this->renderSection('scripts') ?>
     <!-- END: Me JS-->
+    
+
 </body>
 <!-- END: Body-->
 

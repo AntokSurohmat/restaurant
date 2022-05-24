@@ -16,33 +16,38 @@ class Menu extends Migration
                 'auto_increment' => true,
             ],
             'kode_menu'          => [
-                'type'          => 'INT',
-                'constraint'    => 20,
-                'unsigned'      => true,
+                'type'       => 'INT',
+                'constraint' => 20,
+                'unsigned'   => true,
             ],
             'nama_menu'   => [
-                'type'          => 'VARCHAR',
-                'constraint'    => '30',
+                'type'       => 'VARCHAR',
+                'constraint' => '30',
             ],
             'harga_menu'   => [
-                'type'          => 'VARCHAR',
-                'constraint'    => '6',
+                'type'       => 'VARCHAR',
+                'constraint' => '6',
+            ],
+            'foto_menu' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'default'    => 'default.jpg',
             ],
             'deskripsi_menu'   => [
-                'type'          => 'VARCHAR',
-                'constraint'    => '50',
+                'type'       => 'VARCHAR',
+                'constraint' => '50',
             ],
             'created_at'    => [
-                'type'          => 'DATETIME',
-                'null'          => true,
+                'type' => 'DATETIME',
+                'null' => true,
             ],
             'updated_at'     => [
-                'type'          => 'DATETIME',
-                'null'          => true,
+                'type' => 'DATETIME',
+                'null' => true,
             ],
             'deleted_at'    => [
-                'type'          => 'DATETIME',
-                'null'          => true,
+                'type' => 'DATETIME',
+                'null' => true,
             ]
 
         ]);

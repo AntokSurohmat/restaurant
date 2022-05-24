@@ -2,7 +2,7 @@
     <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
         <li class=" navigation-header"><span>Main Menu</span><i class="la la-ellipsis-h" data-toggle="tooltip" data-placement="right" data-original-title="Main Menu"></i>
         </li>
-        <li class=" nav-item"><a href="<?= base_url('admin') ?>"><i class="la la-home"></i><span class="menu-title" data-i18n="Dashboardw">Dashboardw</span></a>
+        <li class=" nav-item"><a href="<?= base_url('admin') ?>"><i class="la la-home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span></a>
         </li>
         <li class=" nav-item"><a href="<?= base_url('admin/menus') ?>"><i class="la la-cutlery"></i><span class="menu-title" data-i18n="List Menu">List Menu</span></a>
         </li>
