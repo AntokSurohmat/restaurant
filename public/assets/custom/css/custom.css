@@ -1,36 +1,64 @@
 .form-control {
-    display: block;
-    width: 100%;
-    height: calc(1.25em + 1.5rem + 3px);
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.25;
-    color: #4e5154;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #babfc7;
-    border-radius: 0.25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  }
-  @media (max-width: 991.98px) {
-    .heading-elements.visible {
-        display: block;
-        top: 100%;
-        top: 37px;
-        height: auto;
-        left: 0px;
-        padding: 10px;
-        text-align: right;
-        z-index: 0;
-        position: absolute;
-        width: 100%;
-    }
-  }
-  .tooltip{
-    z-index: 100000000 !important;
-  }
-  .popover{
-    z-index: 100000000 !important;
-  }
-  
+	display: block;
+	width: 100%;
+	height: calc(1.25em + 1.5rem + 3px);
+	padding: 0.75rem 1rem;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.25;
+	color: #4e5154;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #babfc7;
+	border-radius: 0.25rem;
+	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+@media (max-width: 991.98px) {
+	.heading-elements.visible {
+		display: block;
+		top: 100%;
+		top: 37px;
+		height: auto;
+		left: 0px;
+		padding: 10px;
+		text-align: right;
+		z-index: 0;
+		position: absolute;
+		width: 100%;
+	}
+}
+
+.tooltip {
+	z-index: 100000000 !important;
+}
+
+.popover {
+	z-index: 100000000 !important;
+}
+
+.pt-05 {
+	padding-top: 0.5rem !important;
+}
+
+/* Button To Top */
+#myBtn {
+	display: none;
+	position: fixed;
+	bottom: 20px;
+	right: 30px;
+	z-index: 99;
+	font-size: 18px;
+	border: none;
+	outline: none;
+	background-color: red;
+	color: white;
+	cursor: pointer;
+	padding: 10px 15px;
+	;
+	border-radius: 4px;
+}
+
+#myBtn:hover {
+	background-color: #555;
+}

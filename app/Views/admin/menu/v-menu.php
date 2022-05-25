@@ -5,15 +5,13 @@
 <div class="content-wrapper">
     <div class="content-header row">
         <div class="content-header-left col-md-6 col-12 mb-2">
-            <h3 class="content-header-title">Responsive Datatable</h3>
+            <h3 class="content-header-title"><?= $title ?></h3>
             <div class="row breadcrumbs-top">
                 <div class="breadcrumb-wrapper col-12">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a>
+                        <li class="breadcrumb-item"><a href="<?= base_url('admin') ?>">Dashboard</a>
                         </li>
-                        <li class="breadcrumb-item"><a href="#">DataTables</a>
-                        </li>
-                        <li class="breadcrumb-item active">Responsive Datatable
+                        <li class="breadcrumb-item active"><?= $title ?>
                         </li>
                     </ol>
                 </div>
@@ -29,11 +27,21 @@
     <div class="content-body">
         <!-- Configuration option table -->
         <section id="configuration">
+
+        <?php if(session()->getFlashData('success')){ ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <?= session()->getFlashData('success') ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <?php } ?>
+
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Configuration option</h4>
+                        <div class="card-header border-top-info border-top-3">
+                            <h4 class="card-title">Table <?= $title ?></h4>
                             <a class="heading-elements-toggle" data-toggle="tooltip" data-placement="top" title="Tools"><i class="la la-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">
@@ -41,21 +49,25 @@
                                         <a href="javascript:void(0)" id="delall-btn"><i class="ft-trash-2 text-white"></i></a>
                                     </li>
                                     <li class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Reload Table">
-                                        <a href="javascript:void(0)"><i class="ft-rotate-cw text-white"></i></a>
+                                        <a href="javascript:void(0)" id="reload-btn" data-action="reload"><i class="ft-rotate-cw text-white"></i></a>
                                     </li>
                                     <li class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="Add Data">
                                         <a href="javascript:void(0)" id="addedit-btn"><i class="ft-plus text-white"></i></a>
-                                    </li>
-                                    <li class="btn btn-sm btn-secondary" data-toggle="tooltip" data-placement="top" title="Minimize Card">
-                                        <a data-action="collapse"><i class="ft-minus"></i></a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                         <div class="card-content collapse show">
                             <div class="card-body card-dashboard">
-                                <p class="card-text">The Responsive extension for DataTables can be applied to a DataTable in one of two ways; with a specific class name on the table, or using the DataTables initialisation options. This method shows the latter, with the responsive option being set to the boolean value true.
-                                </p>
+
+                            <?php if(session()->getFlashData('success')){ ?>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <?= session()->getFlashData('success') ?>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            <?php } ?>
 
                                 <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
                                 <fieldset class="mb-2">
@@ -77,11 +89,11 @@
                                                     <label class="custom-control-label" for="checkboxsmallall"></label>
                                                 </div>
                                             </th>
-                                            <th width="15%">Kode Menu</th>
+                                            <th width="10%">Kode Menu</th>
                                             <th>Nama Menu</th>
                                             <th>Harga Menu</th>
                                             <th>Deksripsi Menu</th>
-                                            <th width="10%" class="text-center">Aksi</th>
+                                            <th width="100px" class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -114,8 +126,15 @@
                                 <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
                                 <div class="form-group">
                                     <label for="kodeMenuForm">Kode Menu <span style="color:red">*</span></label>
-                                    <input type="text" id="kodeMenuForm" class="form-control" placeholder="Kode Menu" name="kodeMenuAddEditForm">
-                                    <span class="text-left text-danger font-small-3 kodeMenuError"></span>
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <input type="text" id="kodeMenuForm" class="form-control" placeholder="Kode Menu" name="kodeMenuAddEditForm">
+                                            <span class="text-left text-danger font-small-3 kodeMenuError"></span>
+                                        </div>
+                                        <div class="col-2">
+                                            <button type="button" class="btn btn-secondary" id="generate-kode" data-toggle="popover" data-placement="top" data-content="Secara otomatis akan membuat 6 angka random." data-trigger="hover" data-original-title="Generate Random Number"> <i class="la la-refresh" aria-hidden="true"></i> </button>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
@@ -154,8 +173,8 @@
                             </div>
 
                             <div class="form-actions right">
-                                <button type="button" class="btn btn-sm btn-warning mr-1" data-dismiss="modal"><i class="la la-remove"></i> Cancel</button>
-                                <button type="submit" id="submit-btn" class="btn btn-sm btn-success"><i class="la la-save"></i> Save</button>
+                                <button type="button" class="btn btn-sm btn-secondary mr-1 font-weight-bold" data-dismiss="modal"><i class="la la-remove"></i> Cancel</button>
+                                <button type="submit" id="submit-btn" class="btn btn-sm font-weight-bold"><i class="la la-save"></i>Btn</button>
                             </div>
                         </form>
                     </div>
@@ -170,10 +189,11 @@
 <?= $this->section('scripts') ?>
 <script type="text/javascript">
 	$(document).ready(function() {
+
         // preventDefault to stay in modal when keycode 13
         $('#addedit-form').keydown(function(event) {if (event.keyCode == 13) {event.preventDefault();return false;}});
         // DataTable
-        var url_destination = "<?= base_url('Admin/MenusController/getDataTable') ?>";
+        var url_destination = "<?= base_url('Admin/Menus/getDataTable') ?>";
         var table = $('#table-data').DataTable({
             sDom: 'lrtip',
             lengthChange: false,
@@ -184,18 +204,14 @@
             ajax: {
 				url : url_destination,"timeout": 15000,"error": handleAjaxErrorDataTable
 			},
-			'drawCallback': function(settings){
-                $('[data-toggle="tooltip"]').tooltip({"html": true});
-		        $('[data-toggle="popover"]').popover();
-			},
 			columns : [
-				{data: 'no', orderable: false, "className": "text-center"},
-				{data: 'checkbox', orderable: false, "className": "text-center", checkboxes: {selectRow: false}},
-				{data: 'kode_menu'},
-				{data: 'nama_menu'},
-				{data: 'harga_menu'},
-				{data: 'deskripsi_menu'},
-				{data: 'aksi', orderable: false, "className": "text-center"},
+				{data: 'no', orderable: false, "className": "text-center align-middle"},
+				{data: 'checkbox', orderable: false, "className": "text-center align-middle", checkboxes: {selectRow: false}},
+				{data: 'kode_menu', "className": "align-middle"},
+				{data: 'foto-nama', orderable: false,  "className": "align-middle"},
+				{data: 'harga_menu', "className": "align-middle"},
+				{data: 'deskripsi_menu', orderable: false,  "className": "align-middle"},
+				{data: 'aksi', orderable: false, "className": "text-center align-middle"},
 			]
         });
         // Error DataTable
@@ -226,12 +242,21 @@
         $('#btn-search').click(function() {
             $('#icon-blog').removeClass('la la-remove').addClass("la la-search");$('#search-data').val('');table.search($(this).val()).draw();
         })
+        // Reload DataTables
+        $("#reload-btn").on('click', function() {
+			$("#search-data").val("");
+			table.search($(this).val()).draw();
+			table.ajax.reload(null, false);
+		});
         // Modal
         $('#addedit-btn').click(function() {
             var option = {backdrop: 'static',keyboard: true,}
             $('#addedit-modal').modal(option);$('#addedit-form')[0].reset();
-            $('.modal-title').text('Add Data');$('#method').val('New');
+            $('.modal-header').addClass('bg-info');
+            $('.modal-title').text('Add Data').addClass('text-white font-weight-bold');$('#method').val('New');
             $('#submit-btn').html('<i class="la la-save"></i>&ensp;Submit');$('#addedit-modal').modal('show');
+            $('#submit-btn').html('<i class="la la-save"></i>&ensp;Submit');
+            $('#submit-btn').addClass("btn-info text-white");$('#addedit-modal').modal('show');
         });
         $('#addedit-modal').on('shown.bs.modal', function() {
             $("#kodeMenuForm").focus();
@@ -242,6 +267,8 @@
         });
         $('#addedit-modal').on('hidden.bs.modal', function() {
             $(this).find('form')[0].reset();
+            $('.modal-header').removeClass('bg-info bg-warning');
+            $('#submit-btn').removeClass('btn-info btn-warning');
             $("#kodeMenuForm").empty();$("#kodeMenuForm").removeClass('is-valid');$("#kodeMenuForm").removeClass('is-invalid');$(".kodeMenuError").html('');
             $("#namaMenuForm").empty();$("#namaMenuForm").removeClass('is-valid');$("#namaMenuForm").removeClass('is-invalid');$(".namaMenuError").html('');
             $("#hargaMenuForm").empty();$("#hargaMenuForm").removeClass('is-valid');$("#hargaMenuForm").removeClass('is-invalid');$(".hargaMenuError").html('');
@@ -251,7 +278,7 @@
         // Submit Function
         $('#addedit-form').on('submit', function(event) {
             event.preventDefault();
-            if ($('#method').val() === 'New') { var url = "<?= base_url('admin/menus') ?>";} else { var url = "<?= base_url('/Admin/MenusController/Update') ?>";}
+            if ($('#method').val() === 'New') { var url = "<?= base_url('admin/menus') ?>";} else { var url = "<?= base_url('/Admin/Menus/Update') ?>";}
             $.ajax({
                 url: url,type: "POST",data: new FormData(this),processData: false,contentType: false,cache: false,
                 beforeSend: function(){
@@ -269,7 +296,7 @@
                             type: 'success',title: 'Berhasil..',text: data.msg,
                             showConfirmButton: false,timer: 2000
                         });
-                        $('.dataex-res-configuration').DataTable().ajax.reload(null, false);
+                        table.ajax.reload(null, false);
                     } else {
                         Object.keys(data.error).forEach((key, index) => {
                             $("#" + key + 'Form').addClass('is-invalid');$("." + key + "Error").html(data.error[key]);
@@ -285,20 +312,25 @@
                 error: function(xhr, ajaxOptions, thrownError) {alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);}
             });
         });
-        // checkbox check all on click
-        $("input#checkboxsmallall").on("click", function () {
-            if ($("input:checked#checkboxsmallall").length > 0) {
-                $("input:not(:checked)").prop('checked', true);
-            }
-            else {
-                $("input:checked").prop('checked', false);
-            }
-        });
-
-        $('.checkbox-data').change(function(){
-            var c = this.checked ? '#f00' : '#09f';
-           console.log(c);
-        });
+        // Edit
+        $(document).on('click', '.edit', function() {
+            var id = $(this).data('id');var url = "<?= base_url('admin/menus/get-data') ?>";
+            $.ajax({
+                url: url,type: "POST",data: {id: id,csrf_token_name: $('input[name=csrf_token_name]').val()},
+                dataType: "JSON",
+                success: function(data) {
+                    $('input[name=csrf_token_name]').val(data.csrf_token_name);
+                    $('.modal-header').addClass('bg-warning');
+                    $('.modal-title').addClass('text-white font-weight-bold');
+                    $('.modal-title').text('Edit Data "' + data.nama_menu + '"');
+                    $('#kodeMenuForm').val(data.kode_menu);$('#namaMenuForm').val(data.nama_menu);
+                    $('#hargaMenuForm').val(data.harga_menu);$('#deskripsiMenuForm').val(data.deskripsi_menu);
+                    $('#method').val('Edit');$('#hidden_id').val(data.id);
+                    $('#submit-btn').html('<i class="la la-save"></i>&ensp;Update');
+                    $('#submit-btn').addClass("btn-warning text-white");$('#addedit-modal').modal('show');
+                }
+            })
+        })
         // Delete
         $(document).on('click', '.delete', function() {
             var id = $(this).data('id');
@@ -312,7 +344,7 @@
                 reverseButtons: true
             }).then(function (result) {
                 if (result.value) {
-                    var url_destination = "<?= base_url('Admin/MenusController/delete') ?>";
+                    var url_destination = "<?= base_url('Admin/Menus/delete') ?>";
                     $.ajax({
                         url: url_destination,method: "POST",data: {id: id,csrf_token_name: $('input[name=csrf_token_name]').val()},dataType: "JSON",
                         success: function(data) {
@@ -331,7 +363,7 @@
                                 table.ajax.reload(null, false);
                             }
                         },
-                        error: function(xhr, ajaxOptions, thrownError) {alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);}
+                        // error: function(xhr, ajaxOptions, thrownError) {alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);}
                     });
                 }
             })
@@ -340,10 +372,9 @@
         $('#delall-btn').on('click', function() {
             var rows_selected = table.column(1).checkboxes.selected();
             if(rows_selected.length == 0 ) {
-                toastr.options = {"positionClass": "toast-top-right","closeButton": true, "progressBar": true};toastr["info"]('Tidak Ada Baris Yang Dipilih', "Informasi");
+                toastr.options = {"positionClass": "toast-top-right","closeButton": true, "progressBar": true};toastr["error"]('Tidak Ada Baris Yang Dipilih', "Informasi");
+                return;
             };
-            console.log(JSON.parse("[" + rows_selected.join(",") + "]"));
-            console.log(typeof(JSON.parse("[" + rows_selected.join(",") + "]")));
             swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -354,7 +385,7 @@
                 reverseButtons: true
             }).then(function (result) {
                 if (result.value) {
-                    var url_destination = "<?= base_url('Admin/MenusController/deleteMultiple') ?>";
+                    var url_destination = "<?= base_url('Admin/Menus/deleteMultiple') ?>";
                     $.ajax({
                         url: url_destination,method: "POST",data: {ids: JSON.parse("[" + rows_selected.join(",") + "]"),csrf_token_name: $('input[name=csrf_token_name]').val()},dataType: "JSON",
                         success: function(data) {
@@ -375,6 +406,17 @@
                         },
                         error: function(xhr, ajaxOptions, thrownError) {alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);}
                     });
+                }
+            })
+        });
+        // Generate Random Number
+        $('#generate-kode').click(function() {
+            var url_destination = "<?= base_url('admin/menus/get-number') ?>";
+            $.ajax({
+                url: url_destination,type: "POST",data: {csrf_token_name: $('input[name=csrf_token_name]').val()},
+                dataType: "JSON",
+                success: function(data) {
+                    $('input[name=csrf_token_name]').val(data.csrf_token_name);$('#kodeMenuForm').val(data.kode);
                 }
             })
         })

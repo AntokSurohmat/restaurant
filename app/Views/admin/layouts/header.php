@@ -11,8 +11,8 @@
     <div class="navbar-container content">
         <div class="collapse navbar-collapse" id="navbar-mobile">
             <ul class="nav navbar-nav mr-auto float-left">
-                <li class="nav-item d-none d-md-block"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu text-white"></i></a></li>
-                <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand" href="#"><i class="ficon ft-maximize text-white"></i></a></li>
+                <li class="nav-item d-none d-md-block"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu"></i></a></li>
+                <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand" href="#"><i class="ficon ft-maximize"></i></a></li>
             </ul>
             <ul class="nav navbar-nav float-right">
                 <li class="dropdown dropdown-language nav-item"><a class="dropdown-toggle nav-link" id="dropdown-flag" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="flag-icon flag-icon-id"></i><span class="selected-language"></span></a>
@@ -22,7 +22,7 @@
                     </div>
                 </li>
                 <li class="dropdown dropdown-notification nav-item">
-                    <a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon ft-bell text-white"></i><span class="badge badge-pill badge-danger badge-up badge-glow">5</span></a>
+                    <a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon ft-bell"></i><span class="badge badge-pill badge-danger badge-up badge-glow">5</span></a>
                     <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
                         <li class="dropdown-menu-header">
                             <h6 class="dropdown-header m-0"><span class="grey darken-2">Notifications</span></h6><span class="notification-tag badge badge-danger float-right m-0">5 New</span>
@@ -75,7 +75,7 @@
                     </ul>
                 </li>
                 <li class="dropdown dropdown-user nav-item">
-                    <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"><span class="mr-1 user-name text-bold-700 text-white">John Doe</span><span class="avatar avatar-online"><img src="<?= base_url() ?>/assets/modern/app-assets/images/portrait/small/avatar-s-19.png" alt="avatar"><i></i></span></a>
+                    <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"><span class="mr-1 user-name text-bold-700">John Doe</span><span class="avatar avatar-online"><img src="<?= base_url() ?>/assets/modern/app-assets/images/portrait/small/avatar-s-19.png" alt="avatar"><i></i></span></a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="user-profile.html"><i class="ft-user"></i> Edit Profile</a>
                         <a class="dropdown-item" href="app-kanban.html"><i class="ft-clipboard"></i> Todo</a>

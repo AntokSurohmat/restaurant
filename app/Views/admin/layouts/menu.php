@@ -4,7 +4,7 @@
         </li>
         <li class=" nav-item"><a href="<?= base_url('admin') ?>"><i class="la la-home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span></a>
         </li>
-        <li class=" nav-item"><a href="<?= base_url('admin/menus') ?>"><i class="la la-cutlery"></i><span class="menu-title" data-i18n="List Menu">List Menu</span></a>
+        <li class=" nav-item"><a href="<?= base_url('admin/menus') ?>"><i class="la la-cutlery"></i><span class="menu-title" data-i18n="Daftar Menu">Daftar Menu</span></a>
         </li>
         <li class=" nav-item"><a href="<?= base_url('admin/orders') ?>"><i class="la la-list"></i><span class="menu-title" data-i18n="List Pesanan">List Pesanan</span></a>
         </li>

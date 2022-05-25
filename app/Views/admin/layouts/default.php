@@ -61,15 +61,15 @@
 
 <!-- BEGIN: Body-->
 <body class="vertical-layout vertical-menu 2-columns fixed-navbar" data-open="click" data-menu="vertical-menu" data-col="2-columns">
-
+    <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="la la-arrow-up font-medium-3"></i></button>
     <!-- BEGIN: Header-->
-    <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-dark bg-warning navbar-shadow">
+    <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-dark navbar-shadow">
         <?= $this->include('admin/layouts/header') ?>
     </nav>
     <!-- END: Header-->
 
     <!-- BEGIN: Main Menu-->
-    <div class="main-menu menu-fixed menu-dark menu-accordion    menu-shadow " data-scroll-to-active="true">
+    <div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow " data-scroll-to-active="true">
         <?= $this->include('admin/layouts/menu') ?>
     </div>
 
@@ -124,7 +124,18 @@
 	<script src="<?= base_url() ?>/assets/custom/js/custom.js"></script>
 	<?= $this->renderSection('scripts') ?>
     <!-- END: Me JS-->
-    
+    <script type="text/javascript">
+        //toastr
+        <?php if (session()->getFlashdata('success')) {?>
+            toastr.options = {"positionClass": "toast-top-right","closeButton": true};toastr["success"]('<?= session()->getFlashdata('success') ?>', "Informasi");
+        <?php } else if (session()->getFlashdata('error')) {?>
+            toastr.options = {"positionClass": "toast-top-right","closeButton": true};toastr["error"]('<?= session()->getFlashdata('error')?>', "Informasi");
+        <?php } else if (session()->getFlashdata('warning')) {?>
+            toastr.options = {"positionClass": "toast-top-right","closeButton": true};toastr["warning"]('<?= session()->getFlashdata('warnong')?>', "Informasi");
+        <?php } else if (session()->getFlashdata('info')) {?>
+            toastr.options = {"positionClass": "toast-top-right","closeButton": true};toastr["info"]('<?= session()->getFlashdata('info')?>', "Informasi");
+        <?php }?>
+    </script>
 
 </body>
 <!-- END: Body-->

@@ -34,9 +34,14 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 // Admin
 $routes->group('admin', function ($routes) {
-$routes->get('', 'Admin\DashboardController::index');
-$routes->resource('menus', ['controller' =>'Admin\MenusController']);
-$routes->get('menus', 'Admin\MenusController::index');
+    $routes->get('', 'Admin\Dashboard::index');
+    $routes->resource('menus', ['controller' =>'Admin\Menus']);
+    $routes->group('menus', function ($routes) {
+        $routes->get('', 'Admin\Menus::index');
+        $routes->post('get-data', 'Admin\Menus::getData');
+        $routes->post('get-number', 'Admin\Menus::getRandomNumber');
+    });
+
 });
 /*
  * --------------------------------------------------------------------
