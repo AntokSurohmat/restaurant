@@ -49,11 +49,9 @@ class Menus extends ResourceController
                     ->select('id, kode_menu, nama_menu, harga_menu, foto_menu, deskripsi_menu')
                     ->where('deleted_at', null);
         return DataTable::of($builder)
-        ->postQuery(function($builder){ $builder->orderBy('id', 'desc');})
-        ->add('checkbox', function($row) {
-            $checkbox = $row->id; 
-            return $checkbox;}, 'first', 0)
+        ->postQuery(function($builder) { $builder->orderBy('id', 'desc');})
         ->setSearchableColumns(['kode_menu', 'nama_menu'])
+        ->add('checkbox', function($row) { return $row->id; }, 'first', 0)
         ->add('foto-nama', function($row) {
             if($row->foto_menu == 'default.jpg') {
                 $foto = '<div class="media" >'
@@ -83,7 +81,7 @@ class Menus extends ResourceController
         ->format('harga_menu', function($value){
             return 'Rp. '.number_format($value, 0,'','.');
         })
-        ->add('aksi', function($row){
+        ->add('aksi', function($row) {
             $button = "
             <a class='btn btn-sm btn-warning edit' href='javascript:void(0)' name='edit' data-id='" . $row->id . "' data-toggle='tooltip' data-placement='top' title='[ Edit Data ]'><i class='ft-edit'></i></a>
             <a class='btn btn-sm btn-danger delete' href='javascript:void(0)' name='delete' data-id='" . $row->id . "' data-toggle='tooltip' data-placement='top' title='[ Delete Data ]'><i class='ft-trash'></i></a>

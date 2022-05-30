@@ -6,18 +6,21 @@ use CodeIgniter\Model;
 
 class OrdersModel extends Model
 {
-    protected $DBGroup          = 'default';
+    // protected $DBGroup          = 'default';
     protected $table            = 'orders';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'id_order';
     protected $useAutoIncrement = true;
-    protected $insertID         = 0;
-    protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
+    // protected $insertID         = 0;
+    protected $returnType       = 'object';
+    protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = [
+        'kode_order', 'nama', 'no_telp', 'waktu', 
+        'meja', 'detail', 'status_order'
+    ];
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
@@ -27,16 +30,16 @@ class OrdersModel extends Model
     protected $validationRules      = [];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
-    protected $cleanValidationRules = true;
+    // protected $cleanValidationRules = true;
 
     // Callbacks
-    protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
-    protected $afterInsert    = [];
-    protected $beforeUpdate   = [];
-    protected $afterUpdate    = [];
-    protected $beforeFind     = [];
-    protected $afterFind      = [];
-    protected $beforeDelete   = [];
-    protected $afterDelete    = [];
+    // protected $allowCallbacks = true;
+    // protected $beforeInsert   = [];
+    // protected $afterInsert    = [];
+    // protected $beforeUpdate   = [];
+    // protected $afterUpdate    = [];
+    // protected $beforeFind     = [];
+    // protected $afterFind      = [];
+    // protected $beforeDelete   = [];
+    // protected $afterDelete    = [];
 }

@@ -181,6 +181,7 @@
                 </div>
             </div>
         </div>
+        <!--/ Modal -->
 
     </div>
 </div>
@@ -193,7 +194,7 @@
         // preventDefault to stay in modal when keycode 13
         $('#addedit-form').keydown(function(event) {if (event.keyCode == 13) {event.preventDefault();return false;}});
         // DataTable
-        var url_destination = "<?= base_url('Admin/Menus/getDataTable') ?>";
+        var url = "<?= base_url('Admin/Menus/getDataTable') ?>";
         var table = $('#table-data').DataTable({
             sDom: 'lrtip',
             lengthChange: false,
@@ -202,7 +203,7 @@
 			serverSide: true,
             order: [],
             ajax: {
-				url : url_destination,"timeout": 15000,"error": handleAjaxErrorDataTable
+				url : url,timeout: 15000,error: handleAjaxErrorDataTable
 			},
 			columns : [
 				{data: 'no', orderable: false, "className": "text-center align-middle"},
@@ -220,13 +221,13 @@
                 Swal.fire({
                     type: 'error',title: 'Oops...',
                     text: 'The server took too long to send the data.',showConfirmButton: true,
-                    confirmButtonText: '<i class="fa fa-retweet" aria-hidden="true"></i>&ensp;Refresh',
+                    confirmButtonText: '<i class="la la-refresh" aria-hidden="true"></i>&ensp;Refresh',
                 }).then(function (result) {if (result.value) {location.reload();}});
             } else {
                 Swal.fire({
                     type: 'error',title: 'Oops...',
-                    text: 'Error while loading the table data. Please refresh',showConfirmButton: true,
-                    confirmButtonText: '<i class="fa fa-retweet" aria-hidden="true"></i>&ensp;Refresh',
+                    text: 'Error while loading the table data.',showConfirmButton: true,
+                    confirmButtonText: '<i class="la la-refresh" aria-hidden="true"></i>&ensp;Refresh',
                 }).then(function (result) {if (result.value) {location.reload();}});
             }
         };
@@ -244,9 +245,7 @@
         })
         // Reload DataTables
         $("#reload-btn").on('click', function() {
-			$("#search-data").val("");
-			table.search($(this).val()).draw();
-			table.ajax.reload(null, false);
+			$("#search-data").val("");table.search($(this).val()).draw();table.ajax.reload(null, false);
 		});
         // Modal
         $('#addedit-btn').click(function() {

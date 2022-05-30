@@ -41,6 +41,10 @@ $routes->group('admin', function ($routes) {
         $routes->post('get-data', 'Admin\Menus::getData');
         $routes->post('get-number', 'Admin\Menus::getRandomNumber');
     });
+    $routes->resource('orders', ['controller' =>'Admin\Orders']);
+    $routes->group('orders', function ($routes) {
+        $routes->get('', 'Admin\Orders::index');
+    });
 
 });
 /*
