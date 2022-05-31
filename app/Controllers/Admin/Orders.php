@@ -79,7 +79,14 @@ class Orders extends ResourceController
      */
     public function new()
     {
-        //
+        $data = array(
+            'title' => 'Tambah Pesanan',
+            'parent' => 2,
+            'pmenu' => '',
+            'method' => 'New',
+            'hidden_id' => '',
+        );
+        return view('admin/orders/v-orderAdd', $data);
     }
 
     /**

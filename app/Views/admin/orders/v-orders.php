@@ -28,15 +28,6 @@
         <!-- Configuration option table -->
         <section id="configuration">
 
-        <?php if(session()->getFlashData('success')){ ?>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <?= session()->getFlashData('success') ?>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        <?php } ?>
-
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -52,7 +43,7 @@
                                         <a href="javascript:void(0)" id="reload-btn" data-action="reload"><i class="ft-rotate-cw text-white"></i></a>
                                     </li>
                                     <li class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="Add Data">
-                                        <a href="javascript:void(0)" id="addedit-btn"><i class="ft-plus text-white"></i></a>
+                                        <a href="<?= base_url('admin/orders/new') ?>" ><i class="ft-plus text-white"></i></a>
                                     </li>
                                 </ul>
                             </div>
@@ -60,47 +51,7 @@
                         <div class="card-content collapse show">
                             <div class="card-body card-dashboard">
 
-                            <?php if(session()->getFlashData('success')){ ?>
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <?= session()->getFlashData('success') ?>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                            <?php } ?>
 
-                                <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
-                                <fieldset class="mb-2">
-                                    <div class="input-group">
-                                        <input type="text" id="search-data" class="form-control" placeholder="Search By Kode and Name" autocomplete="off" aria-controls="data-menu">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" id="btn-search" type="button"><i id="icon-blog" class="la la-search"></i></button>
-                                        </div>
-                                    </div>
-                                </fieldset>
-
-                                <table id="table-data" class="table table-striped table-bordered" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th width="3%;" class="text-center">No</th>
-                                            <th width="3%;" class="text-center">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="checkboxsmallall">
-                                                    <label class="custom-control-label" for="checkboxsmallall"></label>
-                                                </div>
-                                            </th>
-                                            <th width="10%">Kode Pesanan</th>
-                                            <th>Atas Nama</th>
-                                            <th>Waktu</th>
-                                            <th>Meja</th>
-                                            <th>Status</th>
-                                            <th width="100px" class="text-center">Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
                     </div>
@@ -118,7 +69,24 @@
 	$(document).ready( () => {
         // preventDefault to stay in modal when keycode 13
         $('#addedit-form').keydown( (event) =>  {if (event.keyCode == 13) {event.preventDefault();return false;}});
+        // Error DataTable
+        let handleAjaxErrorDataTable = (xhr, textStatus, error) => {
+            if (textStatus === 'timeout') {
+                swal.fire({
+                    type: 'errro', title: 'Oops...',
+                    text: 'The Server took to long to send data.', showConfirmButton: true,
+                    confirmButtonText: '<i class="la la-refresh" aria-hidden="true"></i>&ensp;Refresh',
+                }).then( (result) => { if (result.value) {location.reload()} })
+            } else {
+                swal.fire({
+                    type: 'error', title: 'Oops...',
+                    text: 'Error while loading the table data.', showConfirmButton: true,
+                    confirmButtonText: '<i class="la la-refresh" aria-hidden="hidden"></i>&ensp;Refresh',
+                }).then( (result) => { if (result.value) {location.reload()} })
+            }
+        };
 
+        // DataTable
         let url = "<?= base_url('Admin/Orders/getDataTable')?>";
         const table = $('#table-data').DataTable({
             sDom: 'lrtip',
@@ -141,23 +109,7 @@
                 {data: 'aksi', orderable: false, "className": "text-center align-middle"}
             ]
         });
-
-        var handleAjaxErrorDataTable = (xhr, textStatus, error) => {
-            if (textStatus === 'timeout') {
-                Swal.fire({
-                    type: 'errro', title: 'Oops...',
-                    text: 'The Server took to long to send data.', showConfirmButton: true,
-                    confirmButtonText: '<i class="la la-refresh" aria-hidden="true"></i>&ensp;Refresh',
-                }).then( (result) => { if (result.value) {location.reload()} })
-            } else {
-                Swal.fire({
-                    type: 'error', title: 'Oops...',
-                    text: 'Error while loading the table data.', showConfirmButton: true,
-                    confirmButtonText: '<i class="la la-refresh" aria-hidden="hidden"></i>&ensp;Refresh',
-                }).then( (result) => { if (result.value) {location.reload()} })
-            }
-        };
-
+        // Search Form
         $('#search-data').on('keyup keypress blur change', () => {
             if ($(this).val().length >= `1`) {
                 $('#icon-blog').removeClass('la la-seacrh').addClass('la la-remove'); table.search($(this).val()).draw()
@@ -165,10 +117,81 @@
                 $('#icon-blog').removeClass('la la-remove').addClass('la la -seach'); table.search($(this).val()).draw()
             }
         })
-
+        // Reload DataTables
         $('#reload-btn').click( () => {
             $('#seacrh-data').val(''); table.search($(this).val()).draw(); table.ajax.reload(null, false);
         })
+
+        $(document).on('click', '.delete', () => {
+            let id = $(this).data('id');
+            swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButton: true,
+            }).then( (result) => {
+                if (result.value) {
+                    let url = "<?= base_url('Admin/Orders/delete') ?>";
+                    $.ajax({
+                        url : url, method: "POST", data: {id: id, csrf_token_name: $('input[name=csrf_tokrn_name]').val()}, dataType: "JSON",
+                        success: (data) => {
+                            $('input[name=csrf_token_name]').val(data.csrf_token_name);
+                            if (data.success) {
+                                toastrSuccess();
+                            } else {
+                                toastrError();
+                            }
+                        },
+                        error: (xhr, ajaxOptions, throwError) => { alert(xhr.status + "\n" + xhr.responseText + "\n" + throwError); }
+                    })
+                }
+            })
+        })
+
+        $(document).on('click', () => {
+            let rows_selected = table.column(1).checkbox.selected();
+            if (rows_selected == 0) {
+                toastr.options = {"positionClass": "toast-top-right", "closeButton": true, "progressBar": true}; toastr["error"]('Tidak ada baris yang dipilih', "Error");
+                return;
+            };
+            swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to resert this!",
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it',
+                cancelButtonText: 'No, cancel!',
+                reverseButton: true
+            }).then( (result) => {
+                if (result.value) {
+                    let url = "<?= base_url('Admin/Orders/deleteMultiple') ?>";
+                    $.ajax({
+                        url: url, method: "POST", data: {ids: JSON.parse("[" + rows_selected.join(",") + "]"), csrf_token_name: $('input[name=csrf_token_name]').val()}, dataType: "JSON",
+                        success: (data) => {
+                            $('input[name=csrf_token_name]').val(data.csrf_token_name);
+                            if (data.success) {
+                                toastrSuccess();
+                            }else{
+                                toastrError();
+                            }
+                        },
+                        error: (xhr, ajaxOptions, throwError) => { alert(xhr.status + "\n" + xhr.responseText + "\n" + throwError); }
+                    })
+                }
+            })
+        })
+
+        let toastrSuccess = () => {
+            swal.fire({ type: 'success', title: 'Deleted', text: data.msg, showConfirmButton: true, timer: 2000 })
+            table.ajax.reload(null, false);
+        }
+
+        let toastrError = () => {
+            swal.fire({ type: 'error', title: 'Not Deleted!', text: data.msg, showConfirmButton: true, timer: 2000 })
+            table.ajax.reload(null, false);
+        }
         
     })
 </script>

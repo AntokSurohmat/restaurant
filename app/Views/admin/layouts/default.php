@@ -28,6 +28,11 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/extensions/toastr.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/animate/animate.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/extensions/sweetalert2.min.css">
+    <!-- Order -->
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/forms/icheck/icheck.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css">
+    <!-- <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/extensions/nouislider.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/ui/prism.min.css"> -->
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -43,6 +48,10 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/fonts/simple-line-icons/style.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/pages/dashboard-ecommerce.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/plugins/extensions/toastr.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/pages/ecommerce-cart.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/plugins/forms/checkboxes-radios.css">
+    <!-- <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/plugins/extensions/noui-slider.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/core/colors/palette-noui.css"> -->
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
@@ -105,6 +114,15 @@
     <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
     <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/extensions/polyfill.min.js"></script>
     <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/extensions/toastr.min.js"></script>
+    <!-- Order -->
+    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js"></script>
+    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/forms/icheck/icheck.min.js"></script>
+    <!-- <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/ui/prism.min.js"></script>
+    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/extensions/jquery.raty.js"></script>
+    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/extensions/jquery.cookie.js"></script>
+    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/extensions/jquery.treeview.js"></script>
+    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/extensions/wNumb.js"></script>
+    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/extensions/nouislider.min.js"></script> -->
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
@@ -114,6 +132,7 @@
 
     <!-- BEGIN: Page JS-->
     <script src="<?= base_url() ?>/assets/modern/app-assets/js/scripts/forms/custom-file-input.js"></script>
+    <script src="<?= base_url() ?>/assets/modern/app-assets/js/scripts/pages/ecommerce-cart.js"></script>
     <!-- END: Page JS-->
 
     <!-- BEGIN: THIRDPARTY JS-->

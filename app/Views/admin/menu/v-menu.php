@@ -362,7 +362,7 @@
                                 table.ajax.reload(null, false);
                             }
                         },
-                        // error: function(xhr, ajaxOptions, thrownError) {alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);}
+                        error: function(xhr, ajaxOptions, thrownError) {alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);}
                     });
                 }
             })
@@ -388,7 +388,7 @@
                     $.ajax({
                         url: url_destination,method: "POST",data: {ids: JSON.parse("[" + rows_selected.join(",") + "]"),csrf_token_name: $('input[name=csrf_token_name]').val()},dataType: "JSON",
                         success: function(data) {
-                            $('input[name=csrf_token_name]').val(data.csrf_token_name)
+                            $('input[name=csrf_token_name]').val(data.csrf_token_name);
                             if (data.success) {
                                 swal.fire({
                                     type: 'success',title: 'Deleted!',text: data.msg,
