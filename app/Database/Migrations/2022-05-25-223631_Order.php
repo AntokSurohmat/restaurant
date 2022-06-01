@@ -9,7 +9,7 @@ class Order extends Migration
     public function up()
     {
         $this->forge->addField([
-            'id_order'            => [
+            'id'            => [
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
@@ -34,7 +34,7 @@ class Order extends Migration
                 'type'       => 'TINYINT',
                 'constraint' => '2',
             ],
-            'detail' => [
+            'pesanan' => [
                 'type' => 'JSON'
             ],
             'status_order' => [
@@ -55,14 +55,14 @@ class Order extends Migration
             ]
 
         ]);
-        $this->forge->addPrimaryKey('id_order');
+        $this->forge->addPrimaryKey('id');
         $this->forge->addUniqueKey('kode_order');
         $this->forge->createTable('orders');
     }
 
     public function down()
     {
-        $this->forge->dropKey('orders', 'id_order');
+        $this->forge->dropKey('orders', 'id');
         $this->forge->dropKey('orders', 'kode_order');
         $this->forge->dropTable('orders');
     }

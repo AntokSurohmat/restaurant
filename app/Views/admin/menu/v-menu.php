@@ -124,6 +124,15 @@
                                 <input type="hidden" id="hidden_id" name="hidden_id" />
                                 <input type="hidden" id="method" name="method" />
                                 <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
+
+
+                                <div class="form-group">
+                                    <label for="jenisMenuForm">Jenis Menu <span style="color:red">*</span></label>
+                                    <select name="jenisMenuAddEditForm" id="jenisMenuForm" class="form-control select2" style="width: 100%;">
+                                    </select>
+                                    <span class="text-left text-danger font-small-3 jenisMenuError"></span>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="kodeMenuForm">Kode Menu <span style="color:red">*</span></label>
                                     <div class="row">
@@ -193,6 +202,23 @@
 
         // preventDefault to stay in modal when keycode 13
         $('#addedit-form').keydown(function(event) {if (event.keyCode == 13) {event.preventDefault();return false;}});
+        // Error DataTable
+        var handleAjaxErrorDataTable = (xhr, textStatus, error) => {
+            if (textStatus === 'timeout') {
+                Swal.fire({
+                    type: 'error',title: 'Oops...',
+                    text: 'The server took too long to send the data.',showConfirmButton: true,
+                    confirmButtonText: '<i class="la la-refresh" aria-hidden="true"></i>&ensp;Refresh',
+                }).then(function (result) {if (result.value) {location.reload();}});
+            } else {
+                Swal.fire({
+                    type: 'error',title: 'Oops...',
+                    text: 'Error while loading the table data.',showConfirmButton: true,
+                    confirmButtonText: '<i class="la la-refresh" aria-hidden="true"></i>&ensp;Refresh',
+                }).then(function (result) {if (result.value) {location.reload();}});
+            }
+        };
+
         // DataTable
         var url = "<?= base_url('Admin/Menus/getDataTable') ?>";
         var table = $('#table-data').DataTable({
@@ -215,22 +241,6 @@
 				{data: 'aksi', orderable: false, "className": "text-center align-middle"},
 			]
         });
-        // Error DataTable
-        function handleAjaxErrorDataTable(xhr, textStatus, error) {
-            if (textStatus === 'timeout') {
-                Swal.fire({
-                    type: 'error',title: 'Oops...',
-                    text: 'The server took too long to send the data.',showConfirmButton: true,
-                    confirmButtonText: '<i class="la la-refresh" aria-hidden="true"></i>&ensp;Refresh',
-                }).then(function (result) {if (result.value) {location.reload();}});
-            } else {
-                Swal.fire({
-                    type: 'error',title: 'Oops...',
-                    text: 'Error while loading the table data.',showConfirmButton: true,
-                    confirmButtonText: '<i class="la la-refresh" aria-hidden="true"></i>&ensp;Refresh',
-                }).then(function (result) {if (result.value) {location.reload();}});
-            }
-        };
 
         // Search Form
         $('#search-data').on('keyup keypress blur change', function() {
@@ -258,7 +268,8 @@
             $('#submit-btn').addClass("btn-info text-white");$('#addedit-modal').modal('show');
         });
         $('#addedit-modal').on('shown.bs.modal', function() {
-            $("#kodeMenuForm").focus();
+            $('#jenisMenuForm').select2('open');
+            $('#jenisMenuForm').on('select2:select', function(e) {$('#kodeMenuForm').focus();});
             $('#kodeMenuForm').keydown(function(event) {if (event.keyCode == 13) {$('#namaMenuForm').focus();}});
             $('#namaMenuForm').keydown(function(event) {if (event.keyCode == 13) {$('#hargaMenuForm').focus();}});
             $('#hargaMenuForm').keydown(function(event) {if (event.keyCode == 13) {$('#deskripsiMenuForm').focus();}});
@@ -268,11 +279,34 @@
             $(this).find('form')[0].reset();
             $('.modal-header').removeClass('bg-info bg-warning');
             $('#submit-btn').removeClass('btn-info btn-warning');
+            $("#jenisMenuForm").val("").trigger( "change" );$("#jenisMenuForm + span").removeClass('is-valid');$("#jenisMenuForm + span").removeClass('is-invalid');
+            $(".jenisMenuError").html('');
             $("#kodeMenuForm").empty();$("#kodeMenuForm").removeClass('is-valid');$("#kodeMenuForm").removeClass('is-invalid');$(".kodeMenuError").html('');
             $("#namaMenuForm").empty();$("#namaMenuForm").removeClass('is-valid');$("#namaMenuForm").removeClass('is-invalid');$(".namaMenuError").html('');
             $("#hargaMenuForm").empty();$("#hargaMenuForm").removeClass('is-valid');$("#hargaMenuForm").removeClass('is-invalid');$(".hargaMenuError").html('');
             $("#fotoMenuForm").empty();$("#fotoMenuForm").removeClass('is-valid');$("#fotoMenuForm").removeClass('is-invalid');$(".fotoMenuError").html('');
             $("#deskripsiMenuForm").empty();$("#deskripsiMenuForm").removeClass('is-valid');$("#deskripsiMenuForm").removeClass('is-invalid');$(".deskripsiMenuError").html('');
+        });
+
+
+        // Basic Select2 select
+        $(".select2").select2({
+            theme: 'default',
+            dropdownAutoWidth: true,
+            width: '100%',
+        });
+        // Load Data Select2 Array
+        $('#jenisMenuForm').select2({
+            theme: 'default',
+            dropdownAutoWidth: true,
+            width: '100%',
+            placeholder: '---Pilih Jenis Menu ---',
+            dropdownParent: $('#addedit-modal'),
+            data: [{id:'',text:'---Pilih Jenis Menu ---'},{id: 'MK',text: 'Makanan'},{id: 'MM',text: 'Minuman'}]
+        });
+        $("#combo + span").addClass("is-invalid");
+        $("#combo + span").focus(function(){
+            $(this).addClass("is-invalid");
         });
         // Submit Function
         $('#addedit-form').on('submit', function(event) {
@@ -295,15 +329,21 @@
                             type: 'success',title: 'Berhasil..',text: data.msg,
                             showConfirmButton: false,timer: 2000
                         });
-                        table.ajax.reload(null, false);
+                        // table.ajax.reload(null, false);
                     } else {
                         Object.keys(data.error).forEach((key, index) => {
-                            $("#" + key + 'Form').addClass('is-invalid');$("." + key + "Error").html(data.error[key]);
-                            var element = $('#' + key + 'Form');
-                            element.closest('.form-control');
-                            element.closest('.select2-hidden-accessible'); //access select2 class
-                            element.removeClass(data.error[key].length > 0 ? ' is-valid' : ' is-invalid');
-                            element.addClass(data.error[key].length > 0 ? 'is-invalid' : 'is-valid');
+                            $("#" + key + "Form" + " + span").addClass('is-invalid');
+                            $("." + key + "Error").html(data.error[key]);
+                            
+                            var element_validation = $('#' + key + "Form");
+                            element_validation.closest('.form-control');
+                            element_validation.removeClass(data.error[key].length > 0 ? ' is-valid' : ' is-invalid');
+                            element_validation.addClass(data.error[key].length > 0 ? 'is-invalid' : 'is-valid');
+
+                            var select2_validation = $('#' + key + "Form" + " + span");
+                            select2_validation.removeClass(data.error[key].length > 0 ? ' is-valid' : ' is-invalid');
+                            select2_validation.addClass(data.error[key].length > 0 ? 'is-invalid' : 'is-valid');
+                            
                         });
                         toastr.options = {"positionClass": "toast-top-right","closeButton": true, "progressBar": true};toastr["error"](data.msg, "Informasi");
                     }
@@ -322,7 +362,8 @@
                     $('.modal-header').addClass('bg-warning');
                     $('.modal-title').addClass('text-white font-weight-bold');
                     $('.modal-title').text('Edit Data "' + data.nama_menu + '"');
-                    $('#kodeMenuForm').val(data.kode_menu);$('#namaMenuForm').val(data.nama_menu);
+                    $('#jenisMenuForm').val(data.kode_menu.substring(0, 2)).trigger('change');
+                    $('#kodeMenuForm').val(data.kode_menu.substring(2));$('#namaMenuForm').val(data.nama_menu);
                     $('#hargaMenuForm').val(data.harga_menu);$('#deskripsiMenuForm').val(data.deskripsi_menu);
                     $('#method').val('Edit');$('#hidden_id').val(data.id);
                     $('#submit-btn').html('<i class="la la-save"></i>&ensp;Update');
@@ -349,17 +390,9 @@
                         success: function(data) {
                             $('input[name=csrf_token_name]').val(data.csrf_token_name)
                             if (data.success) {
-                                swal.fire({
-                                    type: 'success',title: 'Deleted!',text: data.msg,
-                                    showConfirmButton: true,timer: 2000
-                                });
-                                table.ajax.reload(null, false);
+                                toastrSuccess(data);
                             } else {
-                                swal.fire({
-                                    type: 'error',title: 'Not Deleted!',text: data.msg,
-                                    showConfirmButton: true,timer: 2000
-                                });
-                                table.ajax.reload(null, false);
+                                toastrError(data);
                             }
                         },
                         error: function(xhr, ajaxOptions, thrownError) {alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);}
@@ -390,17 +423,9 @@
                         success: function(data) {
                             $('input[name=csrf_token_name]').val(data.csrf_token_name);
                             if (data.success) {
-                                swal.fire({
-                                    type: 'success',title: 'Deleted!',text: data.msg,
-                                    showConfirmButton: true,timer: 2000
-                                });
-                                table.ajax.reload(null, false);
+                                toastrSuccess(data);
                             } else {
-                                swal.fire({
-                                    type: 'error',title: 'Not Deleted!',text: data.msg,
-                                    showConfirmButton: true,timer: 2000
-                                });
-                                table.ajax.reload(null, false);
+                                toastrError(data);
                             }
                         },
                         error: function(xhr, ajaxOptions, thrownError) {alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);}
@@ -419,6 +444,16 @@
                 }
             })
         })
+
+        var toastrSuccess = (data) => {
+            swal.fire({ type: 'success', title: 'Deleted', text: data.msg, showConfirmButton: true, timer: 2000 })
+            table.ajax.reload(null, false);
+        }
+
+        var toastrError = (data) => {
+            swal.fire({ type: 'error', title: 'Not Deleted!', text: data.msg, showConfirmButton: true, timer: 2000 })
+            table.ajax.reload(null, false);
+        }
 
     })
 </script>

@@ -268,8 +268,7 @@
                         <div class="card-content">
                             <div class="card-body">
                                 <div class="text-right">
-                                    <a href="ecommerce-checkout.html" class="btn btn-info mr-2">Continue Shopping</a>
-                                    <a href="ecommerce-checkout.html" class="btn btn-warning">Place Order</a>
+                                    <a href="ecommerce-checkout.html" class="btn btn-success"><i class="la la-save"></i>&ensp;Submit</a>
                                 </div>
                             </div>
                         </div>

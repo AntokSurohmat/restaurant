@@ -16,9 +16,8 @@ class Menu extends Migration
                 'auto_increment' => true,
             ],
             'kode_menu'          => [
-                'type'       => 'INT',
-                'constraint' => 20,
-                'unsigned'   => true,
+                'type'       => 'VARCHAR',
+                'constraint' => '20',
             ],
             'nama_menu'   => [
                 'type'       => 'VARCHAR',

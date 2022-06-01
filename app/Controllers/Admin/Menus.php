@@ -161,7 +161,12 @@ class Menus extends ResourceController
             // throw new \CodeIgniter\Router\Exceptions\RedirectException(base_url('/forbidden'));
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
+
         $valid = $this->validate([
+            'jenisMenuAddEditForm' => [
+                'label'  => 'Jenis Menu',
+                'rules'  => 'required',
+            ],
             'kodeMenuAddEditForm' => [
                 'label'  => 'Kode Menu',
                 'rules'  => 'required|numeric|max_length[11]|min_length[3]|is_unique[menus.kode_menu]',
@@ -215,6 +220,7 @@ class Menus extends ResourceController
             $data = [
                 'success' => false,
                 'error' => [
+                    'jenisMenu'     => $this->validation->getError('jenisMenuAddEditForm'),
                     'kodeMenu'      => $this->validation->getError('kodeMenuAddEditForm'),
                     'namaMenu'      => $this->validation->getError('namaMenuAddEditForm'),
                     'hargaMenu'     => $this->validation->getError('hargaMenuAddEditForm'),
@@ -232,12 +238,13 @@ class Menus extends ResourceController
             }else{$imageName = 'default.jpg';}
 
             $data = [
-                'kode_menu'      => $this->db->escapeString($this->request->getPost('kodeMenuAddEditForm')),
+                'kode_menu'      => $this->db->escapeString($this->request->getPost('jenisMenuAddEditForm').$this->request->getPost('kodeMenuAddEditForm')),
                 'nama_menu'      => $this->db->escapeString($this->request->getPost('namaMenuAddEditForm')),
                 'harga_menu'     => $this->db->escapeString($this->request->getPost('hargaMenuAddEditForm')),
                 'foto_menu'      => $this->db->escapeString($imageName),
                 'deskripsi_menu' => $this->db->escapeString($this->request->getPost('deskripsiMenuAddEditForm')),
             ];
+
 
             if( $this->menus->insert($data)){
                 $data = array('success' => true, 'msg' => 'Data Berhasil di masukkan');
@@ -278,6 +285,10 @@ class Menus extends ResourceController
             return redirect()->back()->with('error', 'Data Yang Anda Inginkan Tidak Mempunyai ID');
         }
         $valid = $this->validate([
+            'jenisMenuAddEditForm' => [
+                'label'  => 'Jenis Menu',
+                'rules'  => 'required',
+            ],
             'kodeMenuAddEditForm' => [
                 'label'  => 'Kode Menu',
                 'rules'  => 'required|numeric|max_length[11]|min_length[3]',
@@ -330,6 +341,7 @@ class Menus extends ResourceController
             $data = [
                 'success' => false,
                 'error' => [
+                    'jenisMenu'     => $this->validation->getError('jenisMenuAddEditForm'),
                     'kodeMenu'      => $this->validation->getError('kodeMenuAddEditForm'),
                     'namaMenu'      => $this->validation->getError('namaMenuAddEditForm'),
                     'hargaMenu'     => $this->validation->getError('hargaMenuAddEditForm'),
@@ -353,7 +365,7 @@ class Menus extends ResourceController
             }
 
             $data = [
-                'kode_menu'      => $this->db->escapeString($this->request->getPost('kodeMenuAddEditForm')),
+                'kode_menu'      => $this->db->escapeString($this->request->getPost('jenisMenuAddEditForm').$this->request->getPost('kodeMenuAddEditForm')),
                 'nama_menu'      => $this->db->escapeString($this->request->getPost('namaMenuAddEditForm')),
                 'harga_menu'     => $this->db->escapeString($this->request->getPost('hargaMenuAddEditForm')),
                 'foto_menu'      => $this->db->escapeString($imageName),

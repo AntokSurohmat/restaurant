@@ -25,7 +25,7 @@ class MenusModel extends Model
 
     // Validation
     protected $validationRules      = [
-        'kode_menu'      => 'required|numeric|max_length[11]|min_length[3]',
+        'kode_menu'      => 'required|alpha_numeric|max_length[20]|min_length[3]',
         'nama_menu'      => 'required|alpha_space|max_length[30]|min_length[3]',
         'harga_menu'     => 'required|numeric|max_length[20]|min_length[3]',
         'foto_menu'      => 'permit_empty|string',
@@ -33,9 +33,9 @@ class MenusModel extends Model
     ];
     protected $validationMessages   = [
         'kode_menu' => [
-            'numeric'    => 'Hanya Boleh Memasukkan Angka',
-            'max_length' => 'Maksimal 11 Karakter',
-            'min_length' => 'Minimal Memasukkan 3 Karakter',
+            'alpha_numeric' => 'Hanya Boleh Memasukkan Angka dan Huruf',
+            'max_length'    => 'Maksimal 11 Karakter',
+            'min_length'    => 'Minimal Memasukkan 3 Karakter',
         ],
         'nama_menu' => [
             'alpha_space' => 'Hanya Boleh Memasukkan Huruf',

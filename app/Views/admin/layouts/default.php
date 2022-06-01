@@ -31,6 +31,8 @@
     <!-- Order -->
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/forms/icheck/icheck.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/forms/selects/select2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
     <!-- <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/extensions/nouislider.min.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/ui/prism.min.css"> -->
     <!-- END: Vendor CSS-->
@@ -133,6 +135,7 @@
     <!-- BEGIN: Page JS-->
     <script src="<?= base_url() ?>/assets/modern/app-assets/js/scripts/forms/custom-file-input.js"></script>
     <script src="<?= base_url() ?>/assets/modern/app-assets/js/scripts/pages/ecommerce-cart.js"></script>
+    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
     <!-- END: Page JS-->
 
     <!-- BEGIN: THIRDPARTY JS-->
