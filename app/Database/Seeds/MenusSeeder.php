@@ -11,7 +11,6 @@ class MenusSeeder extends Seeder
         $faker = \Faker\Factory::create();
         for ($i=0;$i<100;$i++) {
             $data = [
-                // $kode_menu = $faker->randomElement($array = array ('MK','MM')).$faker->randomNumber(5, false),
                 'kode_menu'      => $faker->randomElement(['MK','MM']).$faker->randomNumber(5, false),
                 'nama_menu'      => $faker->name,
                 'harga_menu'     => $faker->randomNumber(5, false),

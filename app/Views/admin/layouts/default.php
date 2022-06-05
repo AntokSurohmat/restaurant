@@ -140,6 +140,7 @@
 
     <!-- BEGIN: THIRDPARTY JS-->
     <script src="<?= base_url() ?>/assets/thirdparty/jquery-datatables-checkboxes/js/dataTables.checkboxes.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js" ></script>
     <!-- END: THIRDPARTY JS-->
 
     <!-- BEGIN: Me JS-->

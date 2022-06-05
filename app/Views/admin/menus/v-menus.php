@@ -28,14 +28,6 @@
         <!-- Configuration option table -->
         <section id="configuration">
 
-        <?php if(session()->getFlashData('success')){ ?>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <?= session()->getFlashData('success') ?>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        <?php } ?>
 
             <div class="row">
                 <div class="col-12">
@@ -59,15 +51,6 @@
                         </div>
                         <div class="card-content collapse show">
                             <div class="card-body card-dashboard">
-
-                            <?php if(session()->getFlashData('success')){ ?>
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <?= session()->getFlashData('success') ?>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                            <?php } ?>
 
                                 <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
                                 <fieldset class="mb-2">
@@ -202,8 +185,17 @@
 
         // preventDefault to stay in modal when keycode 13
         $('#addedit-form').keydown(function(event) {if (event.keyCode == 13) {event.preventDefault();return false;}});
+        // Toastr 
+        let toastrSuccess = (data) => {
+            swal.fire({ type: 'success', title: 'Deleted', text: data.msg, showConfirmButton: true, timer: 2000 })
+            table.ajax.reload(null, false);
+        }
+        let toastrError = (data) => {
+            swal.fire({ type: 'error', title: 'Not Deleted!', text: data.msg, showConfirmButton: true, timer: 2000 })
+            table.ajax.reload(null, false);
+        }
         // Error DataTable
-        var handleAjaxErrorDataTable = (xhr, textStatus, error) => {
+        let handleAjaxErrorDataTable = (xhr, textStatus, error) => {
             if (textStatus === 'timeout') {
                 Swal.fire({
                     type: 'error',title: 'Oops...',
@@ -259,7 +251,7 @@
 		});
         // Modal
         $('#addedit-btn').click(function() {
-            var option = {backdrop: 'static',keyboard: true,}
+            let option = {backdrop: 'static',keyboard: true,}
             $('#addedit-modal').modal(option);$('#addedit-form')[0].reset();
             $('.modal-header').addClass('bg-info');
             $('.modal-title').text('Add Data').addClass('text-white font-weight-bold');$('#method').val('New');
@@ -302,7 +294,7 @@
             width: '100%',
             placeholder: '---Pilih Jenis Menu ---',
             dropdownParent: $('#addedit-modal'),
-            data: [{id:'',text:'---Pilih Jenis Menu ---'},{id: 'MK',text: 'Makanan'},{id: 'MM',text: 'Minuman'}]
+            data: [{id:'',text:'---Pilih Jenis Menu ---'},{id: 'MK',text: 'MK - Makanan'},{id: 'MM',text: 'MM - Minuman'}]
         });
         $("#combo + span").addClass("is-invalid");
         $("#combo + span").focus(function(){
@@ -384,9 +376,9 @@
                 reverseButtons: true
             }).then(function (result) {
                 if (result.value) {
-                    var url_destination = "<?= base_url('Admin/Menus/delete') ?>";
+                    var url = "<?= base_url('Admin/Menus/delete') ?>";
                     $.ajax({
-                        url: url_destination,method: "POST",data: {id: id,csrf_token_name: $('input[name=csrf_token_name]').val()},dataType: "JSON",
+                        url: url,method: "POST",data: {id: id,csrf_token_name: $('input[name=csrf_token_name]').val()},dataType: "JSON",
                         success: function(data) {
                             $('input[name=csrf_token_name]').val(data.csrf_token_name)
                             if (data.success) {
@@ -417,9 +409,9 @@
                 reverseButtons: true
             }).then(function (result) {
                 if (result.value) {
-                    var url_destination = "<?= base_url('Admin/Menus/deleteMultiple') ?>";
+                    var url = "<?= base_url('Admin/Menus/deleteMultiple') ?>";
                     $.ajax({
-                        url: url_destination,method: "POST",data: {ids: JSON.parse("[" + rows_selected.join(",") + "]"),csrf_token_name: $('input[name=csrf_token_name]').val()},dataType: "JSON",
+                        url: url,method: "POST",data: {ids: JSON.parse("[" + rows_selected.join(",") + "]"),csrf_token_name: $('input[name=csrf_token_name]').val()},dataType: "JSON",
                         success: function(data) {
                             $('input[name=csrf_token_name]').val(data.csrf_token_name);
                             if (data.success) {
@@ -435,26 +427,15 @@
         });
         // Generate Random Number
         $('#generate-kode').click(function() {
-            var url_destination = "<?= base_url('admin/menus/get-number') ?>";
+            var url = "<?= base_url('admin/menus/get-number') ?>";
             $.ajax({
-                url: url_destination,type: "POST",data: {csrf_token_name: $('input[name=csrf_token_name]').val()},
+                url: url,type: "POST",data: {csrf_token_name: $('input[name=csrf_token_name]').val()},
                 dataType: "JSON",
                 success: function(data) {
                     $('input[name=csrf_token_name]').val(data.csrf_token_name);$('#kodeMenuForm').val(data.kode);
                 }
             })
         })
-
-        var toastrSuccess = (data) => {
-            swal.fire({ type: 'success', title: 'Deleted', text: data.msg, showConfirmButton: true, timer: 2000 })
-            table.ajax.reload(null, false);
-        }
-
-        var toastrError = (data) => {
-            swal.fire({ type: 'error', title: 'Not Deleted!', text: data.msg, showConfirmButton: true, timer: 2000 })
-            table.ajax.reload(null, false);
-        }
-
     })
 </script>
 <?= $this->endSection() ?>

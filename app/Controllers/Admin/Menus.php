@@ -2,8 +2,8 @@
 
 namespace App\Controllers\Admin;
 
-use App\Models\Admin\MenusModel;
 use CodeIgniter\RESTful\ResourceController;
+use App\Models\Admin\MenusModel;
 use \Hermawan\DataTables\DataTable;
 
 class Menus extends ResourceController
@@ -33,7 +33,7 @@ class Menus extends ResourceController
             'pmenu' => '',
 
         );
-        return view('admin/menu/v-menu', $data);
+        return view('admin/menus/v-menus', $data);
     }
 
     /**

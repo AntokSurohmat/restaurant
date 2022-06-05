@@ -45,7 +45,17 @@ $routes->group('admin', function ($routes) {
     $routes->group('orders', function ($routes) {
         $routes->get('', 'Admin\Orders::index');
     });
+    $routes->resource('notes', ['controller' =>'Admin\Transactions']);
+    $routes->group('notes', function ($routes) {
+        $routes->get('', 'Admin\Transactions::index');
+    });
+    $routes->resource('users', ['except' => 'show', 'controller' =>'Admin\Users']);
+    $routes->group('users', function ($routes) {
+        $routes->get('', 'Admin\Users::index');
+        $routes->get('(:alphanum)', 'Admin\Users::show/$1');
+        $routes->post('get-data', 'Admin\Users::getData');
 
+    });
 });
 /*
  * --------------------------------------------------------------------
