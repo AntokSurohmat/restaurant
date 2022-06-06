@@ -11,7 +11,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="<?= base_url('admin') ?>">Dashboard</a>
                         </li>
-                        <li class="breadcrumb-item"><a href="<?= base_url('admin/users') ?>">Pengguana</a>
+                        <li class="breadcrumb-item"><a href="<?= base_url('admin/users') ?>">Pengguna</a>
                         </li>
                         <li class="breadcrumb-item active"><?= $title ?>
                         </li>
@@ -36,9 +36,9 @@
                 <input type="hidden" name="hidden_id" id="hidden_id" value="<?= $hidden_id ?>" />
                 <div class="col-12 col-sm-7">
                     <div class="media mb-2">
-                        <a class="mr-1" href="#">
+                        <!-- <a class="mr-1" href="#">
                             <img src="<?= base_url()?>/assets/modern/app-assets/images/portrait/small/avatar-s-26.png" alt="users view avatar" class="users-avatar-shadow rounded-circle" height="64" width="64">
-                        </a>
+                        </a> -->
                         <div class="media-body pt-25">
                             <h4 class="media-heading"><span class="users-view-name" id="nama-view"> </span><span class="text-muted font-medium-1"> @</span><span class="users-view-username text-muted font-medium-1 " id="username-view"></span></h4>
                             <span>ID:</span>
@@ -61,19 +61,19 @@
                                 <table class="table table-borderless">
                                     <tbody>
                                         <tr>
-                                            <td width=100px>Registered</td>
+                                            <td width=150px>Registered</td>
                                             <td width=10px> : </td>
                                             <td id="created-view"></td>
                                         </tr>
                                         <tr>
-                                            <td width=100px>Latest Activity</td>
+                                            <td width=150px>Latest Activity</td>
                                             <td width=10px> : </td>
                                             <td class="users-view-latest-activity" id="activity-view"></td>
                                         </tr>
                                         <tr>
-                                            <td width=100px>Role</td>
+                                            <td width=150px>Role</td>
                                             <td width=10px> : </td>
-                                            <td class="users-view-role" id="roles-view"></td>
+                                            <td class="users-view-role" ><button type="button" class="btn btn-primary btn-sm" id="level-view"> </button></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -82,17 +82,17 @@
                                 <table class="table table-borderless">
                                     <tbody>
                                         <tr>
-                                            <td width=100px>Username:</td>
+                                            <td width=150px>Username:</td>
                                             <td width=10px> : </td>
                                             <td class="users-view-username text-left" id="username-card"></td>
                                         </tr>
                                         <tr>
-                                            <td width=100px>Name</td>
+                                            <td width=150px>Name</td>
                                             <td width=10px> : </td>
                                             <td class="users-view-name" id="nama-card"></td>
                                         </tr>
                                         <tr>
-                                            <td width=100px>E-mail</td>
+                                            <td width=150px>E-mail</td>
                                             <td width=10px> : </td>
                                             <td class="users-view-email" id="email-card"></td>
                                         </tr>
@@ -103,12 +103,12 @@
                                 <table class="table table-borderless">
                                     <tbody>
                                         <tr>
-                                            <td width=100px>Contact</td>
+                                            <td width=150px>Contact</td>
                                             <td width=10px> : </td>
                                             <td id="telp-card"></td>
                                         </tr>
                                         <tr>
-                                            <td width=100px>Address</td>
+                                            <td width=150px>Address</td>
                                             <td width=10px> : </td>
                                             <td id="alamat-card"></td>
                                         </tr>
@@ -130,34 +130,30 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <table class="table table-borderless">
-                                <tbody>
-                                    <tr>
-                                        <td width=100px>Username:</td>
-                                        <td class="users-view-username" id="username-card"></td>
-                                    </tr>
-                                    <tr>
-                                        <td width=100px>Name:</td>
-                                        <td class="users-view-name" id="nama-card"></td>
-                                    </tr>
-                                    <tr>
-                                        <td width=100px>E-mail:</td>
-                                        <td class="users-view-email" id="email-card"></td>
-                                    </tr>
 
-                                </tbody>
-                            </table>
-                            <h5 class="mb-1"><i class="ft-info"></i> Personal Info</h5>
-                            <table class="table table-borderless mb-0">
+                            <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
+                            <fieldset class="mb-2">
+                                <div class="input-group">
+                                    <input type="text" id="search-data" class="form-control" placeholder="Search By Kode and Name" autocomplete="off" aria-controls="data-menu">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" id="btn-search" type="button"><i id="icon-blog" class="la la-search"></i></button>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <table id="table-data" class="table table-striped table-bordered" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th width="3%;" class="text-center">No</th>
+                                        <th width="10%">Kode Menu</th>
+                                        <th>Nama Menu</th>
+                                        <th>Harga Menu</th>
+                                        <th>Deksripsi Menu</th>
+                                        <th width="100px" class="text-center">Aksi</th>
+                                    </tr>
+                                </thead>
                                 <tbody>
-                                    <tr>
-                                        <td width=100px>Contact:</td>
-                                        <td id="telp-card"></td>
-                                    </tr>
-                                    <tr>
-                                        <td width=100px>Address:</td>
-                                        <td id="alamat-card"></td>
-                                    </tr>
+
                                 </tbody>
                             </table>
                         </div>
@@ -177,7 +173,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-        let update = () => {
+        let viewData = () => {
             let id = $('#hidden_id').val();
             let url = "<?= base_url('admin/users/get-data') ?>";
             if ($('#method').val() === "View" && $('#hidden_id').val() != "") {
@@ -190,7 +186,7 @@
                         $('#id-view').text(data.id);
                         $('#created-view').text(moment(data.created_at).format('DD/MM/YY'));
                         $('#activity-view').text(moment(data.update_at).format('DD/MM/YY'));
-                        $('#roles-view').text(data.is_admin);
+                        $('#level-view').html('<i class="ft-user"></i>  ' + data.level);
                         $('#username-view').text(data.username);
                         $('#nama-card').text(data.nama);
                         $('#email-card').text(data.email);
@@ -208,7 +204,7 @@
             }
         }
 
-        update();
+        viewData();
     })
 </script>
 <?= $this->endSection() ?>

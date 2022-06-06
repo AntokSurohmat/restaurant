@@ -279,14 +279,6 @@
             $("#fotoMenuForm").empty();$("#fotoMenuForm").removeClass('is-valid');$("#fotoMenuForm").removeClass('is-invalid');$(".fotoMenuError").html('');
             $("#deskripsiMenuForm").empty();$("#deskripsiMenuForm").removeClass('is-valid');$("#deskripsiMenuForm").removeClass('is-invalid');$(".deskripsiMenuError").html('');
         });
-
-
-        // Basic Select2 select
-        $(".select2").select2({
-            theme: 'default',
-            dropdownAutoWidth: true,
-            width: '100%',
-        });
         // Load Data Select2 Array
         $('#jenisMenuForm').select2({
             theme: 'default',

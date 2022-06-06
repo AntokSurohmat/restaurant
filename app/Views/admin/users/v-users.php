@@ -44,7 +44,7 @@
                                         <a href="javascript:void(0)" id="reload-btn" data-action="reload"><i class="ft-rotate-cw text-white"></i></a>
                                     </li>
                                     <li class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="Add Data">
-                                        <a href="javascript:void(0)" id="addedit-btn"><i class="ft-plus text-white"></i></a>
+                                        <a href="<?= base_url('admin/users/new')?>" ><i class="ft-plus text-white"></i></a>
                                     </li>
                                 </ul>
                             </div>
@@ -146,7 +146,7 @@
 				{data: 'email', "className": "align-middle"},
 				{data: 'nama', "className": "align-middle"},
 				{data: 'no_telp', orderable: false,  "className": "align-middle"},
-				{data: 'is_admin', orderable: false,  "className": "align-middle"},
+				{data: 'level', orderable: false,  "className": "text-center align-middle"},
 				{data: 'aksi', orderable: false, "className": "text-center align-middle"},
 			]
         });

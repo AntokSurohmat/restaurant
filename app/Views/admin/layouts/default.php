@@ -33,8 +33,11 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/forms/selects/select2.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
-    <!-- <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/extensions/nouislider.min.css">
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/ui/prism.min.css"> -->
+    <!-- User -->
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/plugins/forms/validation/form-validation.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/pickers/pickadate/pickadate.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/forms/selects/select2.min.css">
+
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -52,8 +55,7 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/plugins/extensions/toastr.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/pages/ecommerce-cart.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/plugins/forms/checkboxes-radios.css">
-    <!-- <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/plugins/extensions/noui-slider.min.css">
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/core/colors/palette-noui.css"> -->
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/pages/page-users.css">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
@@ -119,12 +121,11 @@
     <!-- Order -->
     <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js"></script>
     <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/forms/icheck/icheck.min.js"></script>
-    <!-- <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/ui/prism.min.js"></script>
-    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/extensions/jquery.raty.js"></script>
-    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/extensions/jquery.cookie.js"></script>
-    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/extensions/jquery.treeview.js"></script>
-    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/extensions/wNumb.js"></script>
-    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/extensions/nouislider.min.js"></script> -->
+    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+    <!-- User -->
+    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/forms/validation/jqBootstrapValidation.js"></script>
+    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/pickers/pickadate/picker.js"></script>
+    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/pickers/pickadate/picker.date.js"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
@@ -135,7 +136,8 @@
     <!-- BEGIN: Page JS-->
     <script src="<?= base_url() ?>/assets/modern/app-assets/js/scripts/forms/custom-file-input.js"></script>
     <script src="<?= base_url() ?>/assets/modern/app-assets/js/scripts/pages/ecommerce-cart.js"></script>
-    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+    <script src="<?= base_url() ?>/assets/modern/app-assets/js/scripts/pages/page-users.js"></script>
+    <script src="<?= base_url() ?>/assets/modern/app-assets/js/scripts/navs/navs.js"></script>
     <!-- END: Page JS-->
 
     <!-- BEGIN: THIRDPARTY JS-->

@@ -45,23 +45,28 @@ class Users extends ResourceController
             throw new \CodeIgniter\Router\Exceptions\RedirectException(base_url('/forbidden'));
         }
         $builder = $this->db->table('users')
-                    ->select('id, username, email, nama, no_telp, is_admin')
+                    ->select('id, username, email, nama, no_telp')
                     ->where('deleted_at', null);
         return DataTable::of($builder)
         ->postQuery(function($builder) { $builder->orderBy('id', 'desc');})
         ->setSearchableColumns(['username', 'nama', 'email', 'no_telp'])
         ->add('checkbox', function($row) { return $row->id; }, 'first', 0)
-        ->format('harga_menu', function($value){
-            return 'Rp. '.number_format($value, 0,'','.');
-        })
+        ->add('level', function($row){
+            if (str_contains($row->email, '@admin.com' )) {
+                $role = '<button type="button" class="btn btn-primary btn-sm" ><i class="ft-user-check"></i> Admin</button>';
+            } else {
+                $role = '<button type="button" class="btn btn-secondary btn-sm" ><i class="ft-user"></i> Customer</button>';
+            }
+            return $role;
+        }, 'last', 1)
         ->add('aksi', function($row) {
             $button = "
             <a class='btn btn-sm btn-info view' href='". base_url('admin/users/'.$row->username) ."' name='view' data-id='" . $row->id . "' data-toggle='tooltip' data-placement='top' title='[ View Data ]'><i class='ft-eye'></i></a>
-            <a class='btn btn-sm btn-warning edit' href='javascript:void(0)' name='edit' data-id='" . $row->id . "' data-toggle='tooltip' data-placement='top' title='[ Edit Data ]'><i class='ft-edit'></i></a>
+            <a class='btn btn-sm btn-warning edit' href='". base_url('admin/users/'.$row->username.'/edit') ."' data-toggle='tooltip' data-placement='top' title='[ Edit Data ]'><i class='ft-edit'></i></a>
             <a class='btn btn-sm btn-danger delete' href='javascript:void(0)' name='delete' data-id='" . $row->id . "' data-toggle='tooltip' data-placement='top' title='[ Delete Data ]'><i class='ft-trash'></i></a>
             ";
             return $button;
-        }, 'last')
+        }, 'last', 0)
         ->addNumbering('no')
         ->toJson(true);
     }
@@ -84,7 +89,7 @@ class Users extends ResourceController
          }
         if($this->request->getVar('id')) {
             $data = $this->users->where('id', $this->request->getVar('id'))->first();
-
+            $data-> level = str_contains($data->email, '@admin.com' ) ? 'Admin' : 'Customer';
             $data->csrfToken = $this->csrfHash;
             echo json_encode($data);
         }
@@ -124,7 +129,14 @@ class Users extends ResourceController
      */
     public function new()
     {
-        //
+        $data = array(
+            'title' => 'Add Pengguna',
+            'parent' => 5,
+            'pmenu' => '',
+            'method' => 'New',
+
+        );
+        return view('admin/users/v-userAdd', $data);
     }
 
     /**
@@ -142,9 +154,26 @@ class Users extends ResourceController
      *
      * @return mixed
      */
-    public function edit($id = null)
+    public function edit($username = null)
     {
-        //
+        // d($username);print_r($username);exit();
+        $users = $this->users->where('username', $username)->where('deleted_at', null)->get();
+        // d($users->getRow()->id);print_r($users->getRow());exit();
+        if($users->getRow() == null){
+            return redirect()->back()->with('error', 'Data Yang Anda Inginkan Tidak Mempunyai ID');
+        }
+        if (!$username) {
+            return redirect()->back()->with('error', 'Data Yang Anda Inginkan Tidak Mempunyai ID');
+        }
+        $data = array(
+            'title' => 'Edit Pengguna',
+            'parent' => 5,
+            'pmenu' => '',
+            'method' => 'Edit',
+            'hidden_id' => $users->getRow()->id
+
+        );
+        return view('admin/users/v-userEdit', $data);
     }
 
     /**
