@@ -38,11 +38,6 @@ class User extends Migration
             'alamat' => [
                 'type'       => 'TEXT',
             ],
-            'is_admin' => [
-                'type'       => 'TINYINT',
-                'constraint' => 1,
-                'default'    => 0
-            ],
             'created_at'    => [
                 'type' => 'DATETIME',
                 'null' => true,
