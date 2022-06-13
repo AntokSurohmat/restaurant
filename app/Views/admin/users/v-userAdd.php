@@ -49,7 +49,7 @@
                         <div class="card-text">
                             <p>This is the most basic and default form having form sections. To add form section use <code>.form-section</code> class with any heading tags. This form has the buttons on the bottom left corner which is the default position.</p>
                         </div>
-                        <form class="form" novalidate>
+                        <form id="addedit-form" class="form" novalidate>
                             <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
                             <input type="hidden" id="method" value="<?= $method ?>" />
                             <div class="form-body">
@@ -131,7 +131,35 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-
+        // preventDefault to stay in modal when keycode 13
+        $('#addedit-form').keydown(function(event) {if (event.keyCode == 13) {event.preventDefault();return false;}});
+        // Toastr 
+        let toastrSuccess = (data) => {
+            swal.fire({ type: 'success', title: 'Deleted', text: data.msg, showConfirmButton: true, timer: 2000 })
+            table.ajax.reload(null, false);
+        }
+        let toastrError = (data) => {
+            swal.fire({ type: 'error', title: 'Not Deleted!', text: data.msg, showConfirmButton: true, timer: 2000 })
+            table.ajax.reload(null, false);
+        }
+        // Clear Input Form
+        let clearform = () => {
+            $('#addedit-form')[0].reset();
+            $("#kodeMenuForm").empty();$("#kodeMenuForm").removeClass('is-valid');$("#kodeMenuForm").removeClass('is-invalid');$(".kodeMenuError").html('');
+        }
+        // Js Input Form
+        $('#usernameUserForm').focus();
+        $('#usernameUserForm').keydown(function(event) {if (event.keyCode == 13) {$('#roleUserForm').select2('open');}});
+        $('#roleUserForm').on('select2:select', function(e) {
+            if($(this).val() == 'customer'){ 
+                $('#namaUserForm').keydown(function(event) {if (event.keyCode == 13) {$('#emailCustomerUserForm').focus();}});
+                $('#emailCustomerUserForm').keydown(function(event) {if (event.keyCode == 13) {$('#no_telpUserForm').select2('open');}});
+            } else {
+                $('#namaUserForm').keydown(function(event) {if (event.keyCode == 13) {$('#emailAdminUserForm').focus();}});}
+                $('#emailAdminUserForm').keydown(function(event) {if (event.keyCode == 13) {$('#no_telpUserForm').select2('open');}});
+        });
+        $('#emailAdminUserForm').keydown(function(event) {if (event.keyCode == 13) {$('#no_telpUserForm').select2('open');}});
+        $('#no_telpUserForm').keydown(function(event) {if (event.keyCode == 13) {$('#alamatUserForm').select2('open');}});
         // Load Data Select2 Array
         $('#roleUserForm').select2({
             theme: 'default',
@@ -143,14 +171,54 @@
         // Role On Change
         $("#roleUserForm").change(function() {
             if($(this).val() == 'customer'){
-                $('#input-admin').addClass('d-none');
-                $('#input-customer').removeClass('d-none');
-            } else {
-                $('#input-customer').addClass('d-none');
-                $('#input-admin').removeClass('d-none');
+                $('#input-admin').addClass('d-none');$('#input-customer').removeClass('d-none');
+            } else { 
+                $('#input-customer').addClass('d-none');$('#input-admin').removeClass('d-none'); 
             }
         });
+        // Submit Function
+        $('#addedit-form').on('submit', function(event) {
+            event.preventDefault();
+            var url = "<?= base_url('admin/users') ?>";
+            $.ajax({
+                url: url,type: "POST",data: new FormData(this),processData: false,contentType: false,cache: false,
+                beforeSend: function(){
+                    $('#submit-btn').html("<i class='la la-spinner spinner'></i>&ensp;Proses");$('#submit-btn').prop('disabled', true);
+                },
+                complete: function() {
+                    $('#submit-btn').html("<i class='la la-save'></i>&ensp;Submit");$('#submit-btn').prop('disabled', false);
+                },
+                success: function(data) {
+                    $('input[name=csrf_token_name]').val(data.csrf_token_name);
+                    $('#submit-btn').html("<i class='la la-save'></i>&ensp;Submit");$('#submit-btn').prop('disabled', false);
+                    if (data.success) {
+                        $('#addedit-modal').modal('hide');
+                        Swal.fire({
+                            type: 'success',title: 'Berhasil..',text: data.msg,
+                            showConfirmButton: false,timer: 2000
+                        });
+                        // table.ajax.reload(null, false);
+                    } else {
+                        Object.keys(data.error).forEach((key, index) => {
+                            $("#" + key + "Form" + " + span").addClass('is-invalid');
+                            $("." + key + "Error").html(data.error[key]);
+                            
+                            var element_validation = $('#' + key + "Form");
+                            element_validation.closest('.form-control');
+                            element_validation.removeClass(data.error[key].length > 0 ? ' is-valid' : ' is-invalid');
+                            element_validation.addClass(data.error[key].length > 0 ? 'is-invalid' : 'is-valid');
 
+                            var select2_validation = $('#' + key + "Form" + " + span");
+                            select2_validation.removeClass(data.error[key].length > 0 ? ' is-valid' : ' is-invalid');
+                            select2_validation.addClass(data.error[key].length > 0 ? 'is-invalid' : 'is-valid');
+                            
+                        });
+                        toastr.options = {"positionClass": "toast-top-right","closeButton": true, "progressBar": true};toastr["error"](data.msg, "Informasi");
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError) {alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);}
+            });
+        });
     })
 </script>
 <?= $this->endSection() ?>
