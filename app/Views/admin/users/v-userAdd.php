@@ -153,13 +153,13 @@
         $('#roleUserForm').on('select2:select', function(e) {
             if($(this).val() == 'customer'){ 
                 $('#namaUserForm').keydown(function(event) {if (event.keyCode == 13) {$('#emailCustomerUserForm').focus();}});
-                $('#emailCustomerUserForm').keydown(function(event) {if (event.keyCode == 13) {$('#no_telpUserForm').select2('open');}});
+                $('#emailCustomerUserForm').keydown(function(event) {if (event.keyCode == 13) {$('#no_telpUserForm').focus();}});
             } else {
                 $('#namaUserForm').keydown(function(event) {if (event.keyCode == 13) {$('#emailAdminUserForm').focus();}});}
-                $('#emailAdminUserForm').keydown(function(event) {if (event.keyCode == 13) {$('#no_telpUserForm').select2('open');}});
+                $('#emailAdminUserForm').keydown(function(event) {if (event.keyCode == 13) {$('#no_telpUserForm').focus();}});
         });
-        $('#emailAdminUserForm').keydown(function(event) {if (event.keyCode == 13) {$('#no_telpUserForm').select2('open');}});
-        $('#no_telpUserForm').keydown(function(event) {if (event.keyCode == 13) {$('#alamatUserForm').select2('open');}});
+        $('#emailAdminUserForm').keydown(function(event) {if (event.keyCode == 13) {$('#no_telpUserForm').focus();}});
+        $('#no_telpUserForm').keydown(function(event) {if (event.keyCode == 13) {$('#alamatUserForm').focus();}});
         // Load Data Select2 Array
         $('#roleUserForm').select2({
             theme: 'default',

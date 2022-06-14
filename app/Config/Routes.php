@@ -62,6 +62,10 @@ $routes->group('admin', function ($routes) {
 
     });
 });
+//customer
+$routes->group('customer', function ($routes) {
+    $routes->get('', 'Customer\Dashboard::index');
+});
 /*
  * --------------------------------------------------------------------
  * Additional Routing

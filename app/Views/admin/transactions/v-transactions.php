@@ -28,15 +28,6 @@
         <!-- Configuration option table -->
         <section id="configuration">
 
-        <?php if(session()->getFlashData('success')){ ?>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <?= session()->getFlashData('success') ?>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        <?php } ?>
-
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -59,15 +50,6 @@
                         </div>
                         <div class="card-content collapse show">
                             <div class="card-body card-dashboard">
-
-                            <?php if(session()->getFlashData('success')){ ?>
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <?= session()->getFlashData('success') ?>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                            <?php } ?>
 
                                 <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
                                 <fieldset class="mb-2">
