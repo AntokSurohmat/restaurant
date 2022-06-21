@@ -65,6 +65,14 @@ $routes->group('admin', function ($routes) {
 //customer
 $routes->group('customer', function ($routes) {
     $routes->get('', 'Customer\Dashboard::index');
+    $routes->resource('shops', ['controller' =>'Customer\Shop']);
+    $routes->group('shops', function ($routes) {
+        $routes->get('', 'Customer\Shop::index');
+    });
+    $routes->resource('order', ['controller' =>'Customer\Order']);
+    $routes->group('order', function ($routes) {
+        $routes->get('', 'Customer\Order::index');
+    });
 });
 /*
  * --------------------------------------------------------------------

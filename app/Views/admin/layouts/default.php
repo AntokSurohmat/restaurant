@@ -37,7 +37,6 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/plugins/forms/validation/form-validation.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/pickers/pickadate/pickadate.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/forms/selects/select2.min.css">
-
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
-<!-- BEGIN: Head-->
 
+<!-- BEGIN: Head-->
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,6 +23,10 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/charts/chartist-plugin-tooltip.css">
     <!-- Tabel -->
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/tables/datatable/datatables.min.css">
+    <!-- Shop -->
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/extensions/nouislider.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/ui/prism.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/forms/icheck/icheck.css">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -39,33 +43,41 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/core/colors/palette-gradient.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/pages/timeline.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/pages/dashboard-ecommerce.css">
+    <!-- Shop -->
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/plugins/extensions/noui-slider.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/pages/ecommerce-shop.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/plugins/forms/checkboxes-radios.css">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/assets/css/style.css">
     <!-- END: Custom CSS-->
 
+    <!-- BEGIN: THIRDPARTY CSS-->
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/thirdparty/jquery-datatables-checkboxes/css/dataTables.checkboxes.css" rel="stylesheet" />
+    <!-- END: THIRDPARTY CSS-->
+
+    <!-- BEGIN: Me CSS-->
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/custom/css/custom.css">
+    <!-- END: Me CSS-->
 </head>
 <!-- END: Head-->
 
 <!-- BEGIN: Body-->
-
 <body class="horizontal-layout horizontal-menu horizontal-menu-padding 2-columns  " data-open="click" data-menu="horizontal-menu" data-col="2-columns">
-
+    <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="la la-arrow-up font-medium-3"></i></button>
     <!-- BEGIN: Header-->
     <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow navbar-static-top navbar-light navbar-brand-center">
         <?= $this->include('customer/layouts/header') ?>
     </nav>
     <!-- END: Header-->
     
-    
     <!-- BEGIN: Main Menu-->
-    
     <div class="header-navbar navbar-expand-sm navbar navbar-horizontal navbar-fixed navbar-dark navbar-without-dd-arrow navbar-shadow" role="navigation" data-menu="menu-wrapper">
         <?= $this->include('customer/layouts/menu') ?>
     </div>
-
     <!-- END: Main Menu-->
+
     <!-- BEGIN: Content-->
     <div class="app-content container center-layout mt-2">
         <?= $this->renderSection('content-customer') ?>
@@ -81,7 +93,6 @@
     </footer>
     <!-- END: Footer-->
 
-
     <!-- BEGIN: Vendor JS-->
     <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/vendors.min.js"></script>
     <!-- BEGIN Vendor JS-->
@@ -95,6 +106,14 @@
     <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/timeline/horizontal-timeline.js"></script>
     <!-- Table -->
     <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/tables/datatable/datatables.min.js"></script>
+    <!-- Shop -->
+    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/ui/prism.min.js"></script>
+    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/extensions/jquery.raty.js"></script>
+    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/extensions/jquery.cookie.js"></script>
+    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/extensions/jquery.treeview.js"></script>
+    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/extensions/wNumb.js"></script>
+    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/extensions/nouislider.min.js"></script>
+    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/forms/icheck/icheck.min.js"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
@@ -103,9 +122,13 @@
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
-    <script src="<?= base_url() ?>/assets/modern/app-assets/js/scripts/pages/dashboard-ecommerce.js"></script>
+    <!-- <script src="<?= base_url() ?>/assets/modern/app-assets/js/scripts/pages/dashboard-ecommerce.js"></script> -->
+    <script src="<?= base_url() ?>/assets/modern/app-assets/js/scripts/pages/content-panel-sidebar.js"></script>
+    <script src="<?= base_url() ?>/assets/modern/app-assets/js/scripts/pages/ecommerce-product-shop.js"></script>
     <!-- END: Page JS-->
+
     <!-- BEGIN: Me JS-->
+	<script src="<?= base_url() ?>/assets/custom/js/custom.js"></script>
 	<?= $this->renderSection('scripts') ?>
     <!-- END: Me JS-->
 </body>
