@@ -16,33 +16,9 @@
                         <li <?= $lmenu =='1' ? 'class="current-list-item"' : ''; ?>><a href="<?= base_url() ?>">Home</a>
                         </li>
                         <li <?= $lmenu =='2' ? 'class="current-list-item"' : ''; ?>><a href="<?= base_url('about') ?>">About</a></li>
-                        <li <?= $lmenu =='3' ? 'class="current-list-item"' : ''; ?>><a href="news.html">Menu</a>
-                            <ul class="sub-menu">
-                                <li><a href="news.html">News</a></li>
-                                <li><a href="single-news.html">Single News</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Pages</a>
-                            <ul class="sub-menu">
-                                <li><a href="404.html">404 page</a></li>
-                                <li><a href="about.html">About</a></li>
-                                <li><a href="cart.html">Cart</a></li>
-                                <li><a href="checkout.html">Check Out</a></li>
-                                <li><a href="contact.html">Contact</a></li>
-                                <li><a href="news.html">News</a></li>
-                                <li><a href="shop.html">Shop</a></li>
-                            </ul>
-                        </li>
+                        <li <?= $lmenu =='3' ? 'class="current-list-item"' : ''; ?>><a href="<?= base_url('shop') ?>">Shop</a></li>
                         <li <?= $lmenu =='4' ? 'class="current-list-item"' : ''; ?>><a href="<?= base_url('contact') ?>">Contact</a></li>
                         <li <?= $lmenu =='5' ? 'class="current-list-item"' : ''; ?>><a href="news.html">Galery</a>
-                        <li><a href="shop.html">Shop</a>
-                            <ul class="sub-menu">
-                                <li><a href="shop.html">Shop</a></li>
-                                <li><a href="checkout.html">Check Out</a></li>
-                                <li><a href="single-product.html">Single Product</a></li>
-                                <li><a href="cart.html">Cart</a></li>
-                            </ul>
-                        </li>
                         <li>
                             <div class="header-icons">
                                 <a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>

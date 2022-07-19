@@ -37,6 +37,7 @@ $routes->group('/', function ($routes) {
     $routes->get('', 'Home\Home::index');
     $routes->get('about', 'Home\About::index');
     $routes->get('contact', 'Home\Contact::index');
+    $routes->get('shop', 'Home\Shop::index');
 });
 // Login
 $routes->group('auth', function ($routes) { 

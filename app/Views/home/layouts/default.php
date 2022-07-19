@@ -7,7 +7,7 @@
 	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
 
 	<!-- title -->
-	<title>Fruitkha - Slider Version</title>
+	<title><?=  $title ?></title>
 
 	<!-- favicon -->
 	<link rel="shortcut icon" type="image/png" href="<?= base_url() ?>/assets/fruitkha/img/favicon.png">
