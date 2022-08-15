@@ -27,10 +27,9 @@ class Orders extends ResourceController
     public function index()
     {
         $data = array(
-            'title' => 'List Pesanan',
-            'parent' => 2,
-            'pmenu' => '',
-
+            'title'  => 'List Pesanan',
+            'parent' => 3,
+            'pmenu'  => '',
         );
         return view('admin/orders/v-orders', $data);
     }
@@ -41,9 +40,9 @@ class Orders extends ResourceController
     * @return mixed
     */
     public function getDataTable() {
-        // if (!$this->request->isAJAX()) {
-        //     throw new \CodeIgniter\Router\Exceptions\RedirectException(base_url('/forbidden'));
-        // }
+        if (!$this->request->isAJAX()) {
+            throw new \CodeIgniter\Router\Exceptions\RedirectException(base_url('/forbidden'));
+        }
         $builder = $this->db->table('orders')
                     ->select('id_order, kode_order, nama, waktu, meja, status_order')
                     ->where('deleted_at', null);

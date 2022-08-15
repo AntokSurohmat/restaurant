@@ -31,7 +31,6 @@ class Menus extends ResourceController
             'title' => 'Daftar Menu',
             'parent' => 2,
             'pmenu' => '',
-
         );
         return view('admin/menus/v-menus', $data);
     }

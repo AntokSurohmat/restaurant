@@ -17,7 +17,6 @@ class Transactions extends ResourceController
             'title' => 'Transaksi',
             'parent' => 4,
             'pmenu' => '',
-
         );
         return view('admin/transactions/v-transactions', $data);
     }

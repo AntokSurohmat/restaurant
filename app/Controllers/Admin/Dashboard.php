@@ -12,7 +12,6 @@ class Dashboard extends BaseController
             'title' => 'Dashboard',
             'parent' => 1,
             'pmenu' => '',
-
         );
         return view('admin/index', $data);
     }

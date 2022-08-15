@@ -1,103 +1,106 @@
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
-<!-- BEGIN: Head-->
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="description" content="Modern admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities with bitcoin dashboard.">
-    <meta name="keywords" content="admin template, modern admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
-    <meta name="author" content="PIXINVENT">
-    <title>Login with Header - Modern Admin - Clean Bootstrap 4 Dashboard HTML Template + Bitcoin Dashboard</title>
-    <link rel="apple-touch-icon" href="<?= base_url() ?>/assets/modern/app-assets/images/ico/apple-icon-120.png">
-    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>/assets/modern/app-assets/images/ico/favicon.ico">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CQuicksand:300,400,500,700" rel="stylesheet">
+<html
+  lang="en"
+  class="light-style customizer-hide"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="<?= base_url() ?>/assets/sneat/assets/"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
 
-    <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/vendors/css/vendors.min.css">
-    <!-- END: Vendor CSS-->
+    <title>Login Basic - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
-    <!-- BEGIN: Theme CSS-->
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/bootstrap-extended.css">
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/colors.css">
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/components.css">
-    <!-- END: Theme CSS-->
+    <meta name="description" content="" />
 
-    <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/core/menu/menu-types/vertical-menu.css">
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/core/colors/palette-gradient.css">
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/app-assets/css/pages/login-register.css">
-    <!-- END: Page CSS-->
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="<?= base_url() ?>/assets/sneat/assets/img/favicon/favicon.ico" />
 
-    <!-- BEGIN: Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/modern/assets/css/style.css">
-    <!-- END: Custom CSS-->
-    <!-- BEGIN: Me CSS-->
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/custom/css/auth.css">
-    <!-- END: Me CSS-->
-</head>
-<!-- END: Head-->
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
 
-<!-- BEGIN: Body-->
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/sneat/assets/vendor/fonts/boxicons.css" />
 
-<body class="vertical-layout vertical-menu 1-column fixed-navbar bg-full-screen-image blank-page" data-open="click" data-menu="vertical-menu" data-col="1-column">
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/sneat/assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/sneat/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/sneat/assets/css/demo.css" />
 
-    <!-- BEGIN: Header-->
-    <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-dark navbar-shadow">
-    <!-- <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-dark navbar-brand-center"> -->
-        <?= $this->include('auth/layouts/header') ?>
-    </nav>
-    <!-- END: Header-->
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/sneat/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-    <!-- BEGIN: Main Menu-->
-    <div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow d-md-none" data-scroll-to-active="true">
-        <?= $this->include('auth/layouts/menu') ?>
-    </div>
+    <!-- Page CSS -->
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/argon/vendor/animate.css/animate.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/argon/vendor/sweetalert2/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/custom/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <!-- Page -->
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/sneat/assets/vendor/css/pages/page-auth.css" />
 
+    <!-- Custom Page CSS -->
+	<?= $this->renderSection('stylesheets') ?>
 
-    <!-- BEGIN: Content-->
-    <div class="app-content content">
-        <div class="content-overlay"></div>
-        <div class="content-wrapper">
-            <div class="content-header row">
-            </div>
-            <div class="content-body">
-                <?= $this->renderSection('content') ?>
-            </div>
-        </div>
-    </div>
-    <!-- END: Content-->
+    <!-- Helpers -->
+    <script src="<?= base_url() ?>/assets/sneat/assets/vendor/js/helpers.js"></script>
 
-    <div class="sidenav-overlay"></div>
-    <div class="drag-target"></div>
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="<?= base_url() ?>/assets/sneat/assets/js/config.js"></script>
+  </head>
 
-    <!-- BEGIN: Footer-->
-    <footer class="footer fixed-bottom footer-dark navbar-border navbar-shadow">
-        <?= $this->include('auth/layouts/footer') ?>
-    </footer>
-    <!-- END: Footer-->
+  <body>
+    <!-- Content -->
+    <?= $this->renderSection('content')?>
+    <!-- / Content -->
 
+    <!-- <div class="buy-now">
+      <a
+        href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/"
+        target="_blank"
+        class="btn btn-danger btn-buy-now"
+        >Upgrade to Pro</a
+      >
+    </div> -->
 
-    <!-- BEGIN: Vendor JS-->
-    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/vendors.min.js"></script>
-    <!-- BEGIN Vendor JS-->
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="<?= base_url() ?>/assets/sneat/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="<?= base_url() ?>/assets/sneat/assets/vendor/libs/popper/popper.js"></script>
+    <script src="<?= base_url() ?>/assets/sneat/assets/vendor/js/bootstrap.js"></script>
+    <script src="<?= base_url() ?>/assets/sneat/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-    <!-- BEGIN: Page Vendor JS-->
-    <script src="<?= base_url() ?>/assets/modern/app-assets/vendors/js/forms/validation/jqBootstrapValidation.js"></script>
-    <!-- END: Page Vendor JS-->
+    <script src="<?= base_url() ?>/assets/sneat/assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
 
-    <!-- BEGIN: Theme JS-->
-    <script src="<?= base_url() ?>/assets/modern/app-assets/js/core/app-menu.js"></script>
-    <script src="<?= base_url() ?>/assets/modern/app-assets/js/core/app.js"></script>
-    <!-- END: Theme JS-->
+    <!-- Vendors JS -->
 
-    <!-- BEGIN: Page JS-->
-    <script src="<?= base_url() ?>/assets/modern/app-assets/js/scripts/forms/form-login-register.js"></script>
-    <!-- END: Page JS-->
+    <!-- Main JS -->
+    <script src="<?= base_url() ?>/assets/sneat/assets/js/main.js"></script>
 
-</body>
-<!-- END: Body-->
+    <!-- Page JS -->
+    <script src="<?= base_url() ?>/assets/custom/sweetalert2/sweetalert2.min.js"></script>
 
+    <!-- Custom Page JS -->
+    <?= $this->renderSection('scripts') ?>
+    
+    <script>
+      /*-- Timeout Alert Error form_validation 5sec --*/
+      var timeout = 5000; 
+      $('.alert').delay(timeout).fadeOut(500);
+    </script>
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </body>
 </html>

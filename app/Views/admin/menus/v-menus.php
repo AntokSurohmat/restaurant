@@ -181,7 +181,7 @@
 <?= $this->endSection() ?>
 <?= $this->section('scripts') ?>
 <script type="text/javascript">
-	$(document).ready(function() {
+    $(function() {
 
         // preventDefault to stay in modal when keycode 13
         $('#addedit-form').keydown(function(event) {if (event.keyCode == 13) {event.preventDefault();return false;}});
