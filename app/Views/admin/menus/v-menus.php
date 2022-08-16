@@ -27,8 +27,6 @@
     <div class="content-body">
         <!-- Configuration option table -->
         <section id="configuration">
-
-
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -251,7 +249,7 @@
 		});
         // Modal
         $('#addedit-btn').click(function() {
-            let option = {backdrop: 'static',keyboard: true,}
+            var option = {backdrop: 'static',keyboard: true,}
             $('#addedit-modal').modal(option);$('#addedit-form')[0].reset();
             $('.modal-header').addClass('bg-info');
             $('.modal-title').text('Add Data').addClass('text-white font-weight-bold');$('#method').val('New');

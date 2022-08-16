@@ -27,7 +27,6 @@
     <div class="content-body">
         <!-- Configuration option table -->
         <section id="configuration">
-
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -43,7 +42,7 @@
                                         <a href="javascript:void(0)" id="reload-btn" data-action="reload"><i class="ft-rotate-cw text-white"></i></a>
                                     </li>
                                     <li class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top" title="Add Data">
-                                        <a href="<?= base_url('admin/orders/new') ?>" ><i class="ft-plus text-white"></i></a>
+                                        <a href="javascript:void(0)" id="addedit-btn"><i class="ft-plus text-white"></i></a>
                                     </li>
                                 </ul>
                             </div>
@@ -51,7 +50,37 @@
                         <div class="card-content collapse show">
                             <div class="card-body card-dashboard">
 
+                                <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
+                                <fieldset class="mb-2">
+                                    <div class="input-group">
+                                        <input type="text" id="search-data" class="form-control" placeholder="Search By Kode and Name" autocomplete="off" aria-controls="data-menu">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" id="btn-search" type="button"><i id="icon-blog" class="la la-search"></i></button>
+                                        </div>
+                                    </div>
+                                </fieldset>
 
+                                <table id="table-data" class="table table-striped table-bordered" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th width="3%;" class="text-center">No</th>
+                                            <th width="3%;" class="text-center">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="checkboxsmallall">
+                                                    <label class="custom-control-label" for="checkboxsmallall"></label>
+                                                </div>
+                                            </th>
+                                            <th width="10%">Kode Menu</th>
+                                            <th>Nama Menu</th>
+                                            <th>Harga Menu</th>
+                                            <th>Deksripsi Menu</th>
+                                            <th width="100px" class="text-center">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -70,7 +99,7 @@
         // preventDefault to stay in modal when keycode 13
         $('#addedit-form').keydown( (event) =>  {if (event.keyCode == 13) {event.preventDefault();return false;}});
         // Error DataTable
-        let handleAjaxErrorDataTable = (xhr, textStatus, error) => {
+        var handleAjaxErrorDataTable = (xhr, textStatus, error) => {
             if (textStatus === 'timeout') {
                 swal.fire({
                     type: 'errro', title: 'Oops...',
@@ -87,28 +116,28 @@
         };
 
         // DataTable
-        let url = "<?= base_url('Admin/Orders/getDataTable')?>";
-        const table = $('#table-data').DataTable({
-            sDom: 'lrtip',
-            lengthChange: false,
-            processing: true,
-			responsive: true,
-			serverSide: true,
-            order: [],
-            ajax: {
-                url: url, timeout: 15000, error: handleAjaxErrorDataTable
-            },
-            columns: [
-                {data: 'no', orderable: false, "className": "text-center align-middle"},
-                {data: 'checkbox', orderable: false, "className": "texr-center align-middle", checkbox: {selectRow: false}},
-                {data: 'kode_order', "className": "align-middle"},
-                {data: 'nama', "className": "align-middle"},
-                {data: 'waktu', "className": "align-middle"},
-                {data: 'meja', "className": "align-middle"},
-                {data: 'status_order', "className": "align-middle"},
-                {data: 'aksi', orderable: false, "className": "text-center align-middle"}
-            ]
-        });
+        var url = "<?= base_url('Admin/Orders/getDataTable')?>";
+        // const table = $('#table-data').DataTable({
+        //     sDom: 'lrtip',
+        //     lengthChange: false,
+        //     processing: true,
+		// 	responsive: true,
+		// 	serverSide: true,
+        //     order: [],
+        //     ajax: {
+        //         url: url, timeout: 15000, error: handleAjaxErrorDataTable
+        //     },
+        //     columns: [
+        //         {data: 'no', orderable: false, "className": "text-center align-middle"},
+        //         {data: 'checkbox', orderable: false, "className": "texr-center align-middle", checkbox: {selectRow: false}},
+        //         {data: 'kode_order', "className": "align-middle"},
+        //         {data: 'nama', "className": "align-middle"},
+        //         {data: 'waktu', "className": "align-middle"},
+        //         {data: 'meja', "className": "align-middle"},
+        //         {data: 'status_order', "className": "align-middle"},
+        //         {data: 'aksi', orderable: false, "className": "text-center align-middle"}
+        //     ]
+        // });
         // Search Form
         $('#search-data').on('keyup keypress blur change', () => {
             if ($(this).val().length >= `1`) {
@@ -123,7 +152,7 @@
         })
 
         $(document).on('click', '.delete', () => {
-            let id = $(this).data('id');
+            var id = $(this).data('id');
             swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -134,7 +163,7 @@
                 reverseButton: true,
             }).then( (result) => {
                 if (result.value) {
-                    let url = "<?= base_url('Admin/Orders/delete') ?>";
+                    var url = "<?= base_url('Admin/Orders/delete') ?>";
                     $.ajax({
                         url : url, method: "POST", data: {id: id, csrf_token_name: $('input[name=csrf_tokrn_name]').val()}, dataType: "JSON",
                         success: (data) => {
@@ -152,7 +181,7 @@
         })
 
         $(document).on('click', () => {
-            let rows_selected = table.column(1).checkbox.selected();
+            var rows_selected = table.column(1).checkbox.selected();
             if (rows_selected == 0) {
                 toastr.options = {"positionClass": "toast-top-right", "closeButton": true, "progressBar": true}; toastr["error"]('Tidak ada baris yang dipilih', "Error");
                 return;
@@ -166,7 +195,7 @@
                 reverseButton: true
             }).then( (result) => {
                 if (result.value) {
-                    let url = "<?= base_url('Admin/Orders/deleteMultiple') ?>";
+                    var url = "<?= base_url('Admin/Orders/deleteMultiple') ?>";
                     $.ajax({
                         url: url, method: "POST", data: {ids: JSON.parse("[" + rows_selected.join(",") + "]"), csrf_token_name: $('input[name=csrf_token_name]').val()}, dataType: "JSON",
                         success: (data) => {

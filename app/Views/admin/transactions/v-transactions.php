@@ -27,7 +27,6 @@
     <div class="content-body">
         <!-- Configuration option table -->
         <section id="configuration">
-
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -71,9 +70,10 @@
                                                     <label class="custom-control-label" for="checkboxsmallall"></label>
                                                 </div>
                                             </th>
-                                            <th width="10%">Kode Transaksi</th>
-                                            <th>Nama</th>
-                                            <th>No Telp</th>
+                                            <th width="10%">Kode Menu</th>
+                                            <th>Nama Menu</th>
+                                            <th>Harga Menu</th>
+                                            <th>Deksripsi Menu</th>
                                             <th width="100px" class="text-center">Aksi</th>
                                         </tr>
                                     </thead>

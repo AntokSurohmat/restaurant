@@ -173,9 +173,9 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-        let viewData = () => {
-            let id = $('#hidden_id').val();
-            let url = "<?= base_url('admin/users/get-data') ?>";
+        var viewData = () => {
+            var id = $('#hidden_id').val();
+            var url = "<?= base_url('admin/users/get-data') ?>";
             if ($('#method').val() === "View" && $('#hidden_id').val() != "") {
                 $.ajax({url: url,type: "POST",data: {id: id,csrf_token_name: $('input[name=csrf_token_name]').val()},dataType: "JSON",
                     success: function(data) {
