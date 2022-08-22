@@ -8,6 +8,9 @@
 <div class="container-xxl">
     <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
+
+            <?= $this->include('auth/layouts/message') ?>
+
             <!-- Register Card -->
             <div class="card">
                 <div class="card-body">

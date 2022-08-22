@@ -7,6 +7,9 @@
 <div class="container-xxl">
     <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner py-4">
+
+            <?= $this->include('auth/layouts/message') ?>
+
             <!-- Forgot Password -->
             <div class="card">
                 <div class="card-body">

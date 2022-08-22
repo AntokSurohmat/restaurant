@@ -82,7 +82,7 @@ return [
     'loginTitle'                => 'Login',
     'loginAction'               => 'Login',
     'rememberMe'                => 'Remember me',
-    'needAnAccount'             => 'Need an account?',
+    'needAnAccount'             => 'Create an account',
     'forgotYourPassword'        => 'Forgot your password?',
     'password'                  => 'Password',
     'repeatPassword'            => 'Repeat Password',

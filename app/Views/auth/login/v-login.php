@@ -6,7 +6,10 @@
 <div class="container-xxl">
     <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
-            <!-- Register -->
+
+            <?= $this->include('auth/layouts/message') ?>
+
+            <!-- Login -->
             <div class="card">
                 <div class="card-body">
                     <!-- Logo -->
@@ -51,42 +54,58 @@
                     </div>
                     <!-- /Logo -->
                     <h4 class="mb-2">Welcome to Sneat! 👋</h4>
-                    <p class="mb-4">Please sign-in to your account and start the adventure</p>
+                    <p class="mb-4"><?=lang('Auth.weNeverShare')?></p>
 
-                    <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email or Username</label>
-                            <input type="text" class="form-control" id="email" name="email-username" placeholder="Enter your email or username" autofocus />
-                        </div>
+                    <form id="formAuthentication" class="mb-3" action="<?= url_to('login') ?>" method="POST" novalidate>
+                        <?= csrf_field() ?>
+
+                        <?php if ($config->validFields === ['email']): ?>
+                            <div class="mb-3">
+                                <label for="login" class="form-label"><?=lang('Auth.emailOrUsername')?></label>
+                                <input type="text" class="form-control <?php if (session('errors.login')) : ?>is-invalid<?php endif ?>" id="login" name="login" placeholder="Enter your email or username" autofocus />
+                                <small><span class="text-danger"><?= session('errors.login') ?></span></small>
+                            </div>
+                        <?php else: ?>
+                            <div class="mb-3">
+                                <label for="login" class="form-label"><?=lang('Auth.emailOrUsername')?></label>
+                                <input type="text" class="form-control <?php if (session('errors.login')) : ?>is-invalid<?php endif ?>" id="login" name="login" placeholder="Enter your email or username" autofocus />
+                                <small><span class="text-danger"><?= session('errors.login') ?></span></small>
+                            </div>
+                        <?php endif; ?>
+
                         <div class="mb-3 form-password-toggle">
                             <div class="d-flex justify-content-between">
-                                <label class="form-label" for="password">Password</label>
-                                <a href="<?= route_to('forgot-password') ?>">
-                                    <small>Forgot Password?</small>
-                                </a>
+                                <label class="form-label" for="password"><?=lang('Auth.password')?></label>
+                                <?php if ($config->activeResetter): ?>
+                                    <a href="<?= route_to('forgot-password') ?>"><small><?=lang('Auth.forgotYourPassword')?></small></a>
+                                <?php endif; ?>
                             </div>
                             <div class="input-group input-group-merge">
-                                <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                                <input type="password" id="password" class="form-control <?php if (session('errors.password')) : ?>is-invalid<?php endif ?>"
+                                    name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
                                 <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                             </div>
+                            <small><span class="text-danger"><?= session('errors.password') ?></span></small>
                         </div>
-                        <div class="mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="remember-me" />
-                                <label class="form-check-label" for="remember-me"> Remember Me </label>
+
+                        <?php if ($config->allowRemembering): ?>
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="remember" name="remember" <?php if (old('remember')) : ?> checked <?php endif ?> />
+                                    <label class="form-check-label" for="remember"><?=lang('Auth.rememberMe')?></label>
+                                </div>
                             </div>
-                        </div>
+                        <?php endif; ?>
+
                         <div class="mb-3">
-                            <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+                            <button class="btn btn-primary d-grid w-100" type="submit" id="submit-btn"><?=lang('Auth.loginAction')?></button>
                         </div>
                     </form>
-
-                    <p class="text-center">
-                        <span>New on our platform?</span>
-                        <a href="<?= route_to('register') ?>">
-                            <span>Create an account</span>
-                        </a>
-                    </p>
+                    <?php if ($config->allowRegistration) : ?>
+                        <p class="text-center">
+                            <span>New on our platform?</span><a href="<?= route_to('register') ?>"><span> <?=lang('Auth.needAnAccount')?></span></a>
+                        </p>
+                    <?php endif; ?>
                 </div>
             </div>
             <!-- /Register -->
@@ -96,79 +115,75 @@
 
 <!-- / Content -->
 
-<div class="buy-now">
-    <a href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/" target="_blank" class="btn btn-danger btn-buy-now">Upgrade to Pro</a>
-</div>
-
 
 <?= $this->endSection() ?>
 <?= $this->section('scripts') ?>
-<!-- <script type="text/javascript">
+<script type="text/javascript">
     $(document).ready(function() {
 
         // preventDefault to stay in modal when keycode 13
         $('#formAuthentication').keydown(function(event) {if (event.keyCode == 13) {event.preventDefault();return false;}});
 
-        $('#email-ktp').focus();
-        $('#email-ktp').keydown(function(event){if(event.keyCode == 13){$('#password').focus();}});
+        $('#login').focus();
+        $('#login').keydown(function(event){if(event.keyCode == 13){$('#password').focus();}});
         $('#password').keydown(function(event){if(event.keyCode == 13){$('#submit-btn').focus();}});
 
         function clearform() {
             $('#formAuthentication')[0].reset();
-            $("#email-ktp").empty();$("#email-ktp").removeClass('is-valid');$("#email-ktp").removeClass('is-invalid');
+            $("#login").empty();$("#login").removeClass('is-valid');$("#login").removeClass('is-invalid');
             $("#password").empty();$("#password").removeClass('is-valid');$("#password").removeClass('is-invalid');
         }
 
-        $('#formAuthentication').on('submit', function(event) {
-            event.preventDefault();
-            var url = "<?= route_to('login-handler') ?>";
-            // console.log(url);
-            // console.log($(this).serialize());
-            $.ajax({url: url,type: "POST",data: $(this).serialize(),dataType: "JSON",
-                beforeSend: function() {
-                    $('#submit-btn').html("<i class='fas fa-spinner fa-spin'></i>&ensp;Proses");$('#submit-btn').prop('disabled', true);
-                },
-                complete: function() {
-                    $('#submit-btn').html("<i class='fas fa-save'></i>&ensp;Submit");$('#submit-btn').prop('disabled', false);
-                },
-                success: function(data) {
-                    // console.log(data);
-                    $('input[name=csrf_token_name]').val(data.csrf_token_name)
-                    if (data.error) {
-                        Object.keys(data.error).forEach((key, index) => {
-                            $("#" + key).addClass('is-invalid');$("." + key + "ErrorForm").html(data.error[key]);
-                            var element = $('#' + key);
-                            element.closest('.form-control')
-                            element.closest('.select2-hidden-accessible') //access select2 class
-                            element.removeClass(data.error[key].length > 0 ? ' is-valid' : ' is-invalid').addClass(data.error[key].length > 0 ? 'is-invalid' : 'is-valid');
-                        });
-                    }
+        // $('#formAuthentication').on('submit', function(event) {
+        //     event.preventDefault();
+        //     var url = "<?= route_to('login-handler') ?>";
+        //     // console.log(url);
+        //     // console.log($(this).serialize());
+        //     $.ajax({url: url,type: "POST",data: $(this).serialize(),dataType: "JSON",
+        //         beforeSend: function() {
+        //             $('#submit-btn').html("<i class='fas fa-spinner fa-spin'></i>&ensp;Proses");$('#submit-btn').prop('disabled', true);
+        //         },
+        //         complete: function() {
+        //             $('#submit-btn').html("<i class='fas fa-save'></i>&ensp;Submit");$('#submit-btn').prop('disabled', false);
+        //         },
+        //         success: function(data) {
+        //             // console.log(data);
+        //             $('input[name=csrf_token_name]').val(data.csrf_token_name)
+        //             if (data.error) {
+        //                 Object.keys(data.error).forEach((key, index) => {
+        //                     $("#" + key).addClass('is-invalid');$("." + key + "ErrorForm").html(data.error[key]);
+        //                     var element = $('#' + key);
+        //                     element.closest('.form-control')
+        //                     element.closest('.select2-hidden-accessible') //access select2 class
+        //                     element.removeClass(data.error[key].length > 0 ? ' is-valid' : ' is-invalid').addClass(data.error[key].length > 0 ? 'is-invalid' : 'is-valid');
+        //                 });
+        //             }
 
-                    $('#alert-flash').removeClass('d-none').html(data.msg)    
+        //             $('#alert-flash').removeClass('d-none').html(data.msg)    
 
-                    // console.log(data.success);
-                    if (data.success == true) {
-                        clearform();let timerInterval
-                        Swal.fire({
-                            icon: 'success',title: 'Berhasil Login',
-                            html: '<b>'+data.msg+ '</b><br>' +
-                                'Otomatis diarahkan ke halaman Dashboard',
-                            timer: 2000,timerProgressBar: true,
-                            showConfirmButton: false,
-                        }).then((result) => {
-                            if (result.dismiss === Swal.DismissReason.timer) {
-                                window.location.href = data.redirect;
-                            }
-                        })
-                    } 
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-                }
-            });
-            return false;
-        })
+        //             // console.log(data.success);
+        //             if (data.success == true) {
+        //                 clearform();let timerInterval
+        //                 Swal.fire({
+        //                     icon: 'success',title: 'Berhasil Login',
+        //                     html: '<b>'+data.msg+ '</b><br>' +
+        //                         'Otomatis diarahkan ke halaman Dashboard',
+        //                     timer: 2000,timerProgressBar: true,
+        //                     showConfirmButton: false,
+        //                 }).then((result) => {
+        //                     if (result.dismiss === Swal.DismissReason.timer) {
+        //                         window.location.href = data.redirect;
+        //                     }
+        //                 })
+        //             } 
+        //         },
+        //         error: function(xhr, ajaxOptions, thrownError) {
+        //             alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+        //         }
+        //     });
+        //     return false;
+        // })
 
     })
-</script> -->
+</script>
 <?= $this->endSection() ?>

@@ -73,7 +73,7 @@ class Auth extends \Myth\Auth\Config\Auth
      * @var array
      */
     public $views = [
-        'login'           => 'App\Views\Auth\login',
+        'login'           => 'App\Views\auth\login\v-login',
         'register'        => 'App\Views\Auth\register',
         'forgot'          => 'App\Views\Auth\forgot',
         'reset'           => 'App\Views\Auth\reset',
@@ -185,7 +185,8 @@ class Auth extends \Myth\Auth\Config\Auth
      *
      * @var string|null Name of the ActivatorInterface class
      */
-    public $requireActivation = 'Myth\Auth\Authentication\Activators\EmailActivator';
+    // public $requireActivation = 'Myth\Auth\Authentication\Activators\EmailActivator';
+    public $requireActivation = null;
 
     /**
      * --------------------------------------------------------------------
@@ -212,7 +213,7 @@ class Auth extends \Myth\Auth\Config\Auth
      *
      * @var bool
      */
-    public $allowRemembering = false;
+    public $allowRemembering = true;
 
     /**
      * --------------------------------------------------------------------
@@ -253,7 +254,7 @@ class Auth extends \Myth\Auth\Config\Auth
      *
      * @var int|string
      */
-    public $hashAlgorithm = PASSWORD_DEFAULT;
+    public $hashAlgorithm = PASSWORD_BCRYPT;
 
     /**
      * --------------------------------------------------------------------

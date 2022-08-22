@@ -97,7 +97,7 @@
 
     <!-- BEGIN: Footer-->
     <footer class="footer footer-static footer-light navbar-border navbar-shadow">
-        <?= $this->include('admin/layouts/footer') ?>
+    <?= $this->include('admin/layouts/footer') ?>
     </footer>
     <!-- END: Footer-->
 

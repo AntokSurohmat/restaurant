@@ -40,13 +40,20 @@ $routes->group('/', function ($routes) {
     $routes->get('about', 'Home\About::index', ['as' => 'about']);
     $routes->get('contact', 'Home\Contact::index', ['as' => 'contact']);
     $routes->get('shop', 'Home\Shop::index', ['as' => 'shop']);
-});
-// Login
-$routes->group('auth', function ($routes) { 
-    $routes->get('login', 'Auth\Login::index', ['as' => 'login']);
+
+
+    $routes->get('login', 'Auth\Login::login', ['as' => 'login']);
     $routes->get('register', 'Auth\Register::index', ['as' => 'register']);
     $routes->get('forgot-password', 'Auth\Forgot::index', ['as' => 'forgot-password']);
+
+
 });
+// Login
+// $routes->group('auth', function ($routes) { 
+//     $routes->get('login', 'Auth\Login::index', ['as' => 'login']);
+//     $routes->get('register', 'Auth\Register::index', ['as' => 'register']);
+//     $routes->get('forgot-password', 'Auth\Forgot::index', ['as' => 'forgot-password']);
+// });
 // Admin
 $routes->group('admin', function ($routes) {
     $routes->get('', 'Admin\Dashboard::index', ['as' => 'admin']);
