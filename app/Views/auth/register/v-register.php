@@ -16,7 +16,7 @@
                 <div class="card-body">
                     <!-- Logo -->
                     <div class="app-brand justify-content-center">
-                        <a href="index.html" class="app-brand-link gap-2">
+                        <a href="<? site_url('')?>" class="app-brand-link gap-2">
                             <span class="app-brand-logo demo">
                                 <svg width="25" viewBox="0 0 25 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <defs>
@@ -58,33 +58,39 @@
                     <h4 class="mb-2">Adventure starts here 🚀</h4>
                     <p class="mb-4">Make your app management easy and fun!</p>
 
-                    <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" autofocus />
-                        </div>
+                    <form id="formAuthentication" class="mb-3" action="<?= url_to('register') ?>"  method="POST" novalidate>
+                        <?= csrf_field() ?>
+
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
+                            <input type="text" class="form-control <?php if (session('errors.email')) : ?>is-invalid<?php endif ?>" id="email" name="email" placeholder="Enter your email" value="<?= old('login'); ?>" />
+                            <?php if(session('errors.email')) : ?>
+                                <small><span class="text-danger"><?= session('errors.email') ?></span></small>
+                            <?php else : ?>
+                                <small id="emailHelp" class="form-text text-muted"><?=lang('Auth.weNeverShare')?></small>
+                            <?php endif; ?>
+                        </div>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control <?php if (session('errors.username')) : ?>is-invalid<?php endif ?>" id="username" name="username" placeholder="Enter your username" value="<?= old('login'); ?>"/>
+                            <small><span class="text-danger"><?= session('errors.username') ?></span></small>
                         </div>
                         <div class="mb-3 form-password-toggle">
                             <label class="form-label" for="password">Password</label>
                             <div class="input-group input-group-merge">
-                                <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                                <input type="password" id="password" class="form-control <?php if (session('errors.password')) : ?>is-invalid<?php endif ?>"" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" autocomplete="off"/>
+                                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                            </div>
+                        </div>
+                        <div class="mb-3 form-password-toggle">
+                            <label class="form-label" for="pass_confirm">Repeat Password</label>
+                            <div class="input-group input-group-merge">
+                                <input type="password" id="pass_confirm" class="form-control" name="pass_confirm" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="pass_confirm" autocomplete="off"/>
                                 <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                             </div>
                         </div>
 
-                        <div class="mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
-                                <label class="form-check-label" for="terms-conditions">
-                                    I agree to
-                                    <a href="javascript:void(0);">privacy policy & terms</a>
-                                </label>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary d-grid w-100">Sign up</button>
+                        <button class="btn btn-primary d-grid w-100" id="submit-btn"><?=lang('Auth.register')?></button>
                     </form>
 
                     <p class="text-center">
@@ -102,78 +108,71 @@
 
 <!-- / Content -->
 
-<div class="buy-now">
-    <a href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/" target="_blank" class="btn btn-danger btn-buy-now">Upgrade to Pro</a>
-</div>
 
 <?= $this->endSection() ?>
 <?= $this->section('scripts') ?>
-<!-- <script type="text/javascript">
+<script type="text/javascript">
     $(document).ready(function() {
 
         // preventDefault to stay in modal when keycode 13
         $('#formAuthentication').keydown(function(event) {if (event.keyCode == 13) {event.preventDefault();return false;}});
 
-        $('#email-ktp').focus();
-        $('#email-ktp').keydown(function(event){if(event.keyCode == 13){$('#password').focus();}});
-        $('#password').keydown(function(event){if(event.keyCode == 13){$('#submit-btn').focus();}});
+        $('#email').focus();
+        $('#email').keydown(function(event){if(event.keyCode == 13){$('#username').focus();}});
+        $('#username').keydown(function(event){if(event.keyCode == 13){$('#password').focus();}});
+        $('#password').keydown(function(event){if(event.keyCode == 13){$('#pass_confirm').focus();}});
+        $('#pass_confirm').keydown(function(event){if(event.keyCode == 13){$('#submit-btn').focus();}});
 
-        function clearform() {
-            $('#formAuthentication')[0].reset();
-            $("#email-ktp").empty();$("#email-ktp").removeClass('is-valid');$("#email-ktp").removeClass('is-invalid');
-            $("#password").empty();$("#password").removeClass('is-valid');$("#password").removeClass('is-invalid');
-        }
+        // $('#formAuthentication').on('submit', function(event) {
+        //     event.preventDefault();
+        //     var url = "<?= route_to('login-handler') ?>";
+        //     // console.log(url);
+        //     // console.log($(this).serialize());
+        //     $.ajax({url: url,type: "POST",data: $(this).serialize(),dataType: "JSON",
+        //         beforeSend: function() {
+        //             $('#submit-btn').html("<i class='fas fa-spinner fa-spin'></i>&ensp;Proses");$('#submit-btn').prop('disabled', true);
+        //         },
+        //         complete: function() {
+        //             $('#submit-btn').html("<i class='fas fa-save'></i>&ensp;Submit");$('#submit-btn').prop('disabled', false);
+        //         },
+        //         success: function(data) {
+        //             // console.log(data);
+        //             $('input[name=csrf_token_name]').val(data.csrf_token_name)
+        //             if (data.error) {
+        //                 Object.keys(data.error).forEach((key, index) => {
+        //                     $("#" + key).addClass('is-invalid');$("." + key + "ErrorForm").html(data.error[key]);
+        //                     var element = $('#' + key);
+        //                     element.closest('.form-control')
+        //                     element.closest('.select2-hidden-accessible') //access select2 class
+        //                     element.removeClass(data.error[key].length > 0 ? ' is-valid' : ' is-invalid').addClass(data.error[key].length > 0 ? 'is-invalid' : 'is-valid');
+        //                 });
+        //             }
 
-        $('#formAuthentication').on('submit', function(event) {
-            event.preventDefault();
-            var url = "<?= route_to('login-handler') ?>";
-            // console.log(url);
-            // console.log($(this).serialize());
-            $.ajax({url: url,type: "POST",data: $(this).serialize(),dataType: "JSON",
-                beforeSend: function() {
-                    $('#submit-btn').html("<i class='fas fa-spinner fa-spin'></i>&ensp;Proses");$('#submit-btn').prop('disabled', true);
-                },
-                complete: function() {
-                    $('#submit-btn').html("<i class='fas fa-save'></i>&ensp;Submit");$('#submit-btn').prop('disabled', false);
-                },
-                success: function(data) {
-                    // console.log(data);
-                    $('input[name=csrf_token_name]').val(data.csrf_token_name)
-                    if (data.error) {
-                        Object.keys(data.error).forEach((key, index) => {
-                            $("#" + key).addClass('is-invalid');$("." + key + "ErrorForm").html(data.error[key]);
-                            var element = $('#' + key);
-                            element.closest('.form-control')
-                            element.closest('.select2-hidden-accessible') //access select2 class
-                            element.removeClass(data.error[key].length > 0 ? ' is-valid' : ' is-invalid').addClass(data.error[key].length > 0 ? 'is-invalid' : 'is-valid');
-                        });
-                    }
+        //             $('#alert-flash').removeClass('d-none').html(data.msg)    
 
-                    $('#alert-flash').removeClass('d-none').html(data.msg)    
-
-                    // console.log(data.success);
-                    if (data.success == true) {
-                        clearform();let timerInterval
-                        Swal.fire({
-                            icon: 'success',title: 'Berhasil Login',
-                            html: '<b>'+data.msg+ '</b><br>' +
-                                'Otomatis diarahkan ke halaman Dashboard',
-                            timer: 2000,timerProgressBar: true,
-                            showConfirmButton: false,
-                        }).then((result) => {
-                            if (result.dismiss === Swal.DismissReason.timer) {
-                                window.location.href = data.redirect;
-                            }
-                        })
-                    } 
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-                }
-            });
-            return false;
-        })
+        //             // console.log(data.success);
+        //             if (data.success == true) {
+        //                 clearform();let timerInterval
+        //                 Swal.fire({
+        //                     icon: 'success',title: 'Berhasil Login',
+        //                     html: '<b>'+data.msg+ '</b><br>' +
+        //                         'Otomatis diarahkan ke halaman Dashboard',
+        //                     timer: 2000,timerProgressBar: true,
+        //                     showConfirmButton: false,
+        //                 }).then((result) => {
+        //                     if (result.dismiss === Swal.DismissReason.timer) {
+        //                         window.location.href = data.redirect;
+        //                     }
+        //                 })
+        //             } 
+        //         },
+        //         error: function(xhr, ajaxOptions, thrownError) {
+        //             alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+        //         }
+        //     });
+        //     return false;
+        // })
 
     })
-</script> -->
+</script>
 <?= $this->endSection() ?>

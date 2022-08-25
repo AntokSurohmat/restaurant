@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <!-- Logo -->
                     <div class="app-brand justify-content-center">
-                        <a href="index.html" class="app-brand-link gap-2">
+                        <a href="<?= site_url('')?>" class="app-brand-link gap-2">
                             <span class="app-brand-logo demo">
                                 <svg width="25" viewBox="0 0 25 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <defs>
@@ -62,13 +62,13 @@
                         <?php if ($config->validFields === ['email']): ?>
                             <div class="mb-3">
                                 <label for="login" class="form-label"><?=lang('Auth.emailOrUsername')?></label>
-                                <input type="text" class="form-control <?php if (session('errors.login')) : ?>is-invalid<?php endif ?>" id="login" name="login" placeholder="Enter your email or username" autofocus />
+                                <input type="text" class="form-control <?php if (session('errors.login')) : ?>is-invalid<?php endif ?>" id="login" name="login" placeholder="Enter your email or username" value="<?= old('login'); ?>" autofocus />
                                 <small><span class="text-danger"><?= session('errors.login') ?></span></small>
                             </div>
                         <?php else: ?>
                             <div class="mb-3">
                                 <label for="login" class="form-label"><?=lang('Auth.emailOrUsername')?></label>
-                                <input type="text" class="form-control <?php if (session('errors.login')) : ?>is-invalid<?php endif ?>" id="login" name="login" placeholder="Enter your email or username" autofocus />
+                                <input type="text" class="form-control <?php if (session('errors.login')) : ?>is-invalid<?php endif ?>" id="login" name="login" placeholder="Enter your email or username" value="<?= old('login'); ?>" autofocus />
                                 <small><span class="text-danger"><?= session('errors.login') ?></span></small>
                             </div>
                         <?php endif; ?>

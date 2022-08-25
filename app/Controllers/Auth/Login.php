@@ -50,7 +50,7 @@ class Login extends BaseController
      * the user to their destination/home if
      * they are already logged in.
      */
-    public function login()
+    public function index()
     {
         // No need to show a login form if the user
         // is already logged in.
@@ -106,5 +106,17 @@ class Login extends BaseController
         unset($_SESSION['redirect_url']);
 
         return redirect()->to($redirectURL)->withCookies()->with('message', lang('Auth.loginSuccess'));
+    }
+
+    /**
+     * Log the user out.
+     */
+    public function logout()
+    {
+        if ($this->auth->check()) {
+            $this->auth->logout();
+        }
+
+        return redirect()->to(route_to('login'))->with('message', 'Anda berhasil logout');
     }
 }

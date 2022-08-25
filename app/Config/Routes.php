@@ -42,7 +42,8 @@ $routes->group('/', function ($routes) {
     $routes->get('shop', 'Home\Shop::index', ['as' => 'shop']);
 
 
-    $routes->get('login', 'Auth\Login::login', ['as' => 'login']);
+    $routes->get('login', 'Auth\Login::index', ['as' => 'login']);
+    $routes->get('logout', 'Auth\Login::logout', ['as' => 'logout']);
     $routes->get('register', 'Auth\Register::index', ['as' => 'register']);
     $routes->get('forgot-password', 'Auth\Forgot::index', ['as' => 'forgot-password']);
 
@@ -55,7 +56,7 @@ $routes->group('/', function ($routes) {
 //     $routes->get('forgot-password', 'Auth\Forgot::index', ['as' => 'forgot-password']);
 // });
 // Admin
-$routes->group('admin', function ($routes) {
+$routes->group('admin', ['filter' => 'role:admin, login'], function ($routes) {
     $routes->get('', 'Admin\Dashboard::index', ['as' => 'admin']);
     $routes->resource('menus', ['controller' =>'Admin\Menus']);
     $routes->group('menus', function ($routes) {
@@ -81,7 +82,7 @@ $routes->group('admin', function ($routes) {
     });
 });
 //customer
-$routes->group('customer', function ($routes) {
+$routes->group('customer', ['filter' => 'role:user,login'], function ($routes) {
     $routes->get('', 'Customer\Dashboard::index');
     $routes->resource('shops', ['controller' =>'Customer\Shop']);
     $routes->group('shops', function ($routes) {

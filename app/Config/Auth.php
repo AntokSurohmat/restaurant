@@ -15,7 +15,7 @@ class Auth extends \Myth\Auth\Config\Auth
      *
      * @var string
      */
-    public $defaultUserGroup;
+    public $defaultUserGroup = 'user';
 
     /**
      * --------------------------------------------------------------------
@@ -74,7 +74,7 @@ class Auth extends \Myth\Auth\Config\Auth
      */
     public $views = [
         'login'           => 'App\Views\auth\login\v-login',
-        'register'        => 'App\Views\Auth\register',
+        'register'        => 'App\Views\auth\register\v-register',
         'forgot'          => 'App\Views\Auth\forgot',
         'reset'           => 'App\Views\Auth\reset',
         'emailForgot'     => 'App\Views\Auth\emails\forgot',

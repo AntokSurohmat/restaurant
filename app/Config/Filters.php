@@ -23,6 +23,10 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+
+        'login'      => \Myth\Auth\Filters\LoginFilter::class,        // Add by Me
+        'role'       => \Myth\Auth\Filters\RoleFilter::class,         // Add by Me
+        'permission' => \Myth\Auth\Filters\PermissionFilter::class,   // Add by Me
     ];
 
     /**
@@ -35,7 +39,8 @@ class Filters extends BaseConfig
         'before' => [
             // 'honeypot',
             // 'csrf',
-            // 'invalidchars',
+            // 'invalidchars',,
+            // 'login, // Add by Me
         ],
         'after' => [
             'toolbar',

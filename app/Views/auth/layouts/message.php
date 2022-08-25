@@ -11,9 +11,9 @@
 <?php endif ?>
 
 <?php if (session()->has('errors')) : ?>
-    <ul class="alert alert-danger" role="alert">
+    <ul class="alert alert-danger list-unstyled" role="alert">
     <?php foreach (session('errors') as $error) : ?>
-        <li class=""><?= $error ?></li>
+            <li><?= $error ?></li>
     <?php endforeach ?>
     </ul>
 <?php endif ?>
